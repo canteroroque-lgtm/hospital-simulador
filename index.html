@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guardias de Alto Riesgo: Handoff Simulator</title>
+  <!-- Google Fonts: Outfit (headings) and Inter (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- MARCO LED PERIMETRAL DINÁMICO -->
+  <div class="led-border" id="led-frame"></div>
+
+  <div class="app-container">
+    
+    <!-- PANTALLA 1: INICIO / PRESENTACIÓN -->
+    <div id="screen-start" class="screen active">
+      <div class="brand">
+        <div class="brand-icon">⚡</div>
+        <span class="badge">SIMULADOR CLÍNICO</span>
+      </div>
+      <h1 class="title-main">Guardias de Alto Riesgo</h1>
+      <p class="subtitle">Desafío de Traspaso Seguro y Seguridad del Paciente</p>
+      
+      <div class="intro-card">
+        <p>Estás a punto de iniciar una <strong>guardia médica de 12 horas</strong>. Tu objetivo es coordinar traspasos de pacientes y tomar decisiones críticas usando herramientas clave:</p>
+        <ul class="intro-tools">
+          <li><strong>TeamSTEPPS:</strong> Comunicación estructurada (SBAR, I-PASS, CUS, Check-back).</li>
+          <li><strong>Lean Healthcare:</strong> Flujos eficientes, prevención de errores (Poka-Yoke) y estandarización.</li>
+        </ul>
+        <p class="intro-alert">⚠️ Mantén el <strong>Riesgo Acumulado</strong> bajo control o tu paciente sufrirá un evento adverso grave.</p>
+      </div>
+
+      <div class="audio-control-start">
+        <label class="switch-container">
+          <input type="checkbox" id="audio-toggle-start" checked>
+          <span class="switch-slider"></span>
+        </label>
+        <span>Activar Monitor de Audio (Beeps del ECG y alarmas)</span>
+      </div>
+
+      <button class="btn-primary" onclick="startGame()">Iniciar Guardia (08:00 AM) →</button>
+    </div>
+
+    <!-- PANTALLA 2: SIMULADOR ACTIVO (MONITOR DE UCI) -->
+    <div id="screen-game" class="screen">
+      <!-- CABECERA DEL MONITOR -->
+      <div class="monitor-header">
+        <div class="monitor-meta">
+          <span class="badge badge-pulse" id="area-badge">URGENCIAS</span>
+          <span class="shift-timer" id="clock-display">🕒 08:00 AM</span>
+        </div>
+        
+        <!-- Electrocardiograma Animado SVG -->
+        <div class="ecg-container">
+          <svg class="ecg-svg" viewBox="0 0 300 50">
+            <path class="ecg-grid" d="M 0 25 L 300 25 M 0 10 L 300 10 M 0 40 L 300 40 M 30 0 L 30 50 M 60 0 L 60 50 M 90 0 L 90 50 M 120 0 L 120 50 M 150 0 L 150 50 M 180 0 L 180 50 M 210 0 L 210 50 M 240 0 L 240 50 M 270 0 L 270 50" />
+            <path class="ecg-lineline" id="ecg-path" d="M 0 25 L 40 25 L 45 20 L 50 30 L 55 25 L 75 25 L 80 5 L 85 45 L 90 25 L 110 25 L 115 22 L 120 28 L 125 25 L 300 25" />
+          </svg>
+        </div>
+      </div>
+
+      <!-- ESTADÍSTICAS / INDICADORES -->
+      <div class="stats-grid">
+        <!-- Tarjeta de Riesgo -->
+        <div class="stat-card" id="card-risk">
+          <div class="stat-title">
+            <span>Riesgo Acumulado</span>
+            <span class="stat-val" id="risk-val">0%</span>
+          </div>
+          <div class="progress-bar-bg">
+            <div id="risk-fill" class="progress-bar-fill"></div>
+          </div>
+        </div>
+        
+        <!-- Tarjeta Lean Eficiencia -->
+        <div class="stat-card">
+          <div class="stat-title">
+            <span>Eficiencia (Lean)</span>
+            <span class="stat-val" id="lean-val">100%</span>
+          </div>
+          <div class="progress-bar-bg">
+            <div id="lean-fill" class="progress-bar-fill lean-fill"></div>
+          </div>
+        </div>
+
+        <!-- Tarjeta Comunicación (TeamSTEPPS) -->
+        <div class="stat-card">
+          <div class="stat-title">
+            <span>Comunicación</span>
+            <span class="stat-val" id="comm-val">100%</span>
+          </div>
+          <div class="progress-bar-bg">
+            <div id="comm-fill" class="progress-bar-fill comm-fill"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONTENIDO DEL EVENTO -->
+      <div class="game-body">
+        <div class="event-meta">
+          <span class="event-step-number" id="event-step">Situación 1 de 6</span>
+          <div class="audio-switch-game">
+            <span>🔊</span>
+            <label class="switch-container">
+              <input type="checkbox" id="audio-toggle-game" checked>
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+        </div>
+        
+        <h2 id="event-title" class="event-title">Cargando evento...</h2>
+        <div id="context-box" class="context-box"></div>
+
+        <!-- Opciones del Jugador -->
+        <div id="options-grid" class="options-grid"></div>
+
+        <!-- Retroalimentación / Debriefing -->
+        <div id="feedback-card" class="feedback-card">
+          <div class="feedback-icon" id="feedback-icon"></div>
+          <div class="feedback-content">
+            <h4 id="feedback-title">Resultado de la decisión</h4>
+            <p id="feedback-text"></p>
+            <div class="debrief-box" id="debrief-box">
+              <h5>📚 Fundamento Teórico:</h5>
+              <p id="debrief-text"></p>
+            </div>
+          </div>
+        </div>
+
+        <button id="next-btn" class="btn-primary next-btn" onclick="nextEvent()">Continuar Guardia →</button>
+      </div>
+    </div>
+
+    <!-- PANTALLA 3: REPORTE FINAL / DEBRIEFING -->
+    <div id="screen-result" class="screen">
+      <div class="brand">
+        <span class="badge" id="result-status-badge">GUARDIA FINALIZADA</span>
+      </div>
+      <h1 class="title-main" id="result-title">Fin del Turno</h1>
+      <p class="subtitle" id="result-subtitle">Reporte de Desempeño Clínico</p>
+
+      <!-- Panel de Puntuación de Guardia -->
+      <div class="score-board">
+        <div class="score-card">
+          <div class="score-num" id="final-risk">0%</div>
+          <div class="score-label">Riesgo Final</div>
+        </div>
+        <div class="score-card">
+          <div class="score-num" id="final-comm">100%</div>
+          <div class="score-label">Comunicación</div>
+        </div>
+        <div class="score-card">
+          <div class="score-num" id="final-lean">100%</div>
+          <div class="score-label">Eficiencia Lean</div>
+        </div>
+      </div>
+
+      <!-- Resumen Clínico -->
+      <div class="result-message" id="result-message-box"></div>
+
+      <!-- Acordeón / Guía de Herramientas Aprendidas -->
+      <div class="tools-guide">
+        <h3>Manual Rápido de Herramientas Clínicas</h3>
+        
+        <div class="guide-item">
+          <button class="guide-trigger" onclick="toggleGuide(this)">
+            <span>🗣️ SBAR (TeamSTEPPS)</span>
+            <span class="arrow">▼</span>
+          </button>
+          <div class="guide-content">
+            <p><strong>Situation, Background, Assessment, Recommendation.</strong> Estructura la comunicación en momentos críticos. Garantiza que la información urgente fluya de forma rápida y sin ambigüedades entre profesionales.</p>
+          </div>
+        </div>
+
+        <div class="guide-item">
+          <button class="guide-trigger" onclick="toggleGuide(this)">
+            <span>🔄 I-PASS (TeamSTEPPS)</span>
+            <span class="arrow">▼</span>
+          </button>
+          <div class="guide-content">
+            <p><strong>Illness severity, Patient summary, Action list, Situation awareness, Synthesis.</strong> Estándar de oro para traspasos de turno. Reduce drásticamente los errores médicos al estructurar sistemáticamente la información del paciente.</p>
+          </div>
+        </div>
+
+        <div class="guide-item">
+          <button class="guide-trigger" onclick="toggleGuide(this)">
+            <span>⚠️ CUS (TeamSTEPPS)</span>
+            <span class="arrow">▼</span>
+          </button>
+          <div class="guide-content">
+            <p><strong>Concerned, Uncomfortable, Safety Issue.</strong> Técnica de escalada verbal. Permite a cualquier miembro del equipo levantar la voz ante una duda de seguridad ("Estoy Preocupado", "Me siento Incómodo", "Es un Problema de Seguridad").</p>
+          </div>
+        </div>
+
+        <div class="guide-item">
+          <button class="guide-trigger" onclick="toggleGuide(this)">
+            <span>🛡️ Poka-Yoke (Lean Healthcare)</span>
+            <span class="arrow">▼</span>
+          </button>
+          <div class="guide-content">
+            <p><strong>Mecanismos a prueba de errores.</strong> En salud, se aplica mediante listas de verificación quirúrgicas obligatorias, códigos de colores en ampollas de alto riesgo o sistemas informáticos que bloquean dosis incompatibles.</p>
+          </div>
+        </div>
+
+        <div class="guide-item">
+          <button class="guide-trigger" onclick="toggleGuide(this)">
+            <span>📝 Check-Back y Closed-Loop</span>
+            <span class="arrow">▼</span>
+          </button>
+          <div class="guide-content">
+            <p><strong>Verificación de bucle cerrado.</strong> El receptor repite la orden recibida en voz alta (ej. dosis de un fármaco) para que el emisor confirme que ha comprendido correctamente. Crucial en entornos ruidosos o de alta tensión.</p>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-primary" onclick="restartGame()">Reiniciar Guardia 🔄</button>
+    </div>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
