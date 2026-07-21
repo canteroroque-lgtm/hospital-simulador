@@ -49,12 +49,111 @@ const events = [
     ]
   },
   {
-    title: "Situación 2: El traspaso clínico masivo en Planta",
+    title: "Situación 2: Prescripción en Pediatría e Involucramiento Familiar",
+    area: "PLANTA DE PEDIATRÍA",
+    time: "🕒 09:15 AM",
+    context: "Un lactante de 14 meses ingresado por bronquiolitis y neumonía tiene prescripta Ampicilina IV. La receta indica la dosis correspondiente a un niño de 14 kg, pero la ficha y la pulsera marcan que el lactante pesa 8 kg. La madre está angustiada al lado de la cuna y comenta que nota al bebé inusualmente somnoliento tras la primera dosis.",
+    tool: "Doble Verificación Pediátrica y Comunicación Asertiva con la Familia",
+    opts: [
+      {
+        txt: "Pausar la infusión inmediatamente, verificar el cálculo de dosis en mg/kg junto a un segundo enfermero utilizando la báscula de ingreso, y notificar al pediatra para ajustar la pauta y tranquilizar a la madre explicándole los pasos de seguridad.",
+        ok: true,
+        risk: 0,
+        comm: 25,
+        lean: 15,
+        fb: "✅ ¡Excelente Juicio Clínico y Cuidado Centrado en la Familia! Has frenado un error de sobredosificación pediátrica e involucrado a la madre como barrera de seguridad.",
+        debrief: "En Pediatría, el peso exacto en kg es crítico. La 'Doble Verificación Independiente' y escuchar las alertas de los cuidadores familiares son herramientas clave para interceptar errores farmacológicos antes de que causen daño."
+      },
+      {
+        txt: "Continuar la infusión a mitad de velocidad para compensar el exceso mientras esperas a que la farmacéutica responda el mensaje en el chat del hospital.",
+        ok: false,
+        risk: 40,
+        comm: -20,
+        lean: -15,
+        fb: "❌ Ajuste Empírico Inseguro. Reducir la velocidad no altera la masa total de fármaco administrada y mantiene la sobredosis tóxica en un paciente frágil.",
+        debrief: "Jamás se deben realizar ajustes empíricos en infusiones pediátricas sin recálculo oficial del peso por dosis."
+      },
+      {
+        txt: "Decirle a la madre que no se preocupe porque la somnolencia es totalmente normal en bebés enfermos, sin verificar el peso en la receta.",
+        ok: false,
+        risk: 45,
+        comm: -25,
+        lean: -20,
+        fb: "❌ Desestimar Alertas Familiares. La madre es la principal observadora del comportamiento basal del niño; ignorar sus observaciones favorece la progresión de la toxicidad.",
+        debrief: "La comunicación asertiva exige escuchar activamente a la familia cuando reporta cambios soplados en el estado de conciencia del paciente pediátrico."
+      },
+      {
+        txt: "Completar la infusión del suero actual y pedirle al turno siguiente que vuelvan a pesar al bebé antes de la dosis de la tarde.",
+        ok: false,
+        risk: 35,
+        comm: -15,
+        lean: -10,
+        fb: "⚠️ Postergación Peligrosa. Administrar la dosis completa sobrecalculada agrava el riesgo de toxicidad renal o neurológica.",
+        debrief: "Ante una discrepancia de peso/dosis en pediatría, la verificación se realiza ANTES de administrar el fármaco, nunca después."
+      }
+    ]
+  },
+  {
+    title: "Situación 3: Desescalada Verbal en Salud Mental Aguda",
+    area: "UNIDAD DE SALUD MENTAL",
+    time: "🕒 10:30 AM",
+    context: "Un paciente de 34 años con un brote psicótico agudo se encuentra muy angustiado, caminando velozmente por el pasillo y exigiendo salir de la unidad. Un médico junior, asustado por la postura rígida del paciente, sugiere llamar al personal de seguridad para aplicar contención mecánica inmediata de 4 puntos.",
+    tool: "CUS (Lenguaje de Alerta) & Desescalada Verbal Estandarizada",
+    opts: [
+      {
+        txt: "Llamar inmediatamente a 4 guardias de seguridad para inmovilizar al paciente en la cama antes de que empiece a gritar más fuerte.",
+        ok: false,
+        risk: 40,
+        comm: -25,
+        lean: -20,
+        fb: "❌ Contención Mecánica Precoz y Traumática. Recurrir a la fuerza física como primera opción sin intentar la desescalada verbal aumenta las lesiones físicas y el trauma psíquico.",
+        debrief: "La contención mecánica es la última medida de contención. El protocolo estandarizado exige agotar la desescalada verbal y el manejo ambiental seguro."
+      },
+      {
+        txt: "Detener la orden de contención diciendo: 'Doctor, estoy preocupado y me siento incómodo (CUS) con la contención inmediata. Es un riesgo de trauma y agitación secundaria. Iniciemos el protocolo de desescalada verbal a distancia segura en un ambiente tranquilo'.",
+        ok: true,
+        risk: 0,
+        comm: 25,
+        lean: 20,
+        fb: "✅ ¡Excelente Manejo Asertivo y Humanizado! Has detenido una medida invasiva innecesaria usando el lenguaje de seguridad CUS.",
+        debrief: "En Salud Mental, la desescalada verbal estructurada (espacio personal, tono de voz calmado, escucha empática) es la primera barrera Poka-Yoke contra el agravamiento de la conducta violenta."
+      },
+      {
+        txt: "Encerrar al paciente en su habitación individual desde afuera para que se tranquilice solo mientras el equipo toma un café.",
+        ok: false,
+        risk: 45,
+        comm: -30,
+        lean: -25,
+        fb: "❌ Aislamiento No Supervisado. El aislamiento sin monitorización continua en un paciente angustiado incrementa masivamente el riesgo de autolesión o intento de autolisis.",
+        debrief: "El aislamiento involuntario no supervisado viola las directrices éticas y de seguridad del paciente en Salud Mental."
+      },
+      {
+        txt: "Discutir a gritos con el médico junior en el pasillo para demostrarle que no sabe manejar pacientes psiquiátricos.",
+        ok: false,
+        risk: 30,
+        comm: -20,
+        lean: -15,
+        fb: "⚠️ Escalada de Tensión Ambiental. Discutir entre el personal frente a un paciente con ideación paranoide incrementa su desconfianza y agresividad.",
+        debrief: "El equipo debe transmitir calma y coherencia unificada ante situaciones de agitación psicomotriz."
+      }
+    ]
+  },
+  {
+    title: "Situación 4: El traspaso clínico masivo en Planta",
     area: "PLANTA DE MEDICINA INTERNA",
-    time: "🕒 09:30 AM",
+    time: "🕒 11:45 AM",
     context: "Tu turno termina y debes traspasar la guardia de 8 pacientes complejos a tu colega del turno de tarde. En el pasillo hay mucho ruido de familiares, alarmas y llamadas telefónicas.",
     tool: "I-PASS (TeamSTEPPS)",
     opts: [
+      {
+        txt: "Reunirse en una sala tranquila, repasar sistemáticamente a cada paciente detallando la gravedad, resumen clínico, tareas pendientes, contingencias y solicitar que el receptor confirme sintetizando la información.",
+        ok: true,
+        risk: 0,
+        comm: 20,
+        lean: 15,
+        fb: "✅ ¡Traspaso Seguro y Completo! Has garantizado que la información viaje de forma intacta.",
+        debrief: "I-PASS es el estándar de oro que reduce los errores médicos hasta un 30%. El último paso (Síntesis) obliga al receptor a repetir el plan con sus palabras, garantizando la comprensión mutua."
+      },
       {
         txt: "Hacer una entrega verbal rápida en el pasillo de 5 minutos, centrándote solo en los 2 pacientes que consideras 'más graves' para ahorrar tiempo.",
         ok: false,
@@ -81,34 +180,16 @@ const events = [
         lean: -15,
         fb: "⚠️ Delegación Inadecuada de Traspaso. La responsabilidad del traspaso clínico del plan de cuidados es indelegable entre los profesionales a cargo del paciente.",
         debrief: "Filtrar la comunicación a través de terceros sin contacto directo entre enfermeros salientes y entrantes duplica la probabilidad de omisión."
-      },
-      {
-        txt: "Reunirse en una sala tranquila, repasar sistemáticamente a cada paciente detallando la gravedad, resumen clínico, tareas pendientes, contingencias y solicitar que el receptor confirme sintetizando la información.",
-        ok: true,
-        risk: 0,
-        comm: 20,
-        lean: 15,
-        fb: "✅ ¡Traspaso Seguro y Completo! Has garantizado que la información viaje de forma intacta.",
-        debrief: "I-PASS es el estándar de oro que reduce los errores médicos hasta un 30%. El último paso (Síntesis) obliga al receptor a repetir el plan con sus palabras, garantizando la comprensión mutua."
       }
     ]
   },
   {
-    title: "Situación 3: Prescripción confusa en Cuidados Intensivos",
+    title: "Situación 5: Prescripción confusa en Cuidados Intensivos",
     area: "CUIDADOS INTENSIVOS (UCI)",
-    time: "🕒 11:15 AM",
+    time: "🕒 01:15 PM",
     context: "El Jefe de Servicio de la UCI, conocido por su carácter difícil, te ordena de forma verbal y rápida mientras camina al ascensor: 'Ponle una dosis de rescate de 15 UI de Insulina Rápida al paciente de la cama 4 que tiene la glucosa en 280'. Sabes que ese paciente tiene insuficiencia renal aguda y esa dosis podría causarle una hipoglucemia severa.",
     tool: "CUS / Two-Challenge Rule (TeamSTEPPS)",
     opts: [
-      {
-        txt: "Detener al médico de forma asertiva y decirle: 'Doctor, estoy preocupado y me siento incómodo administrando 15 UI debido a la falla renal del paciente. Es un riesgo de seguridad por hipoglucemia. Por favor, revisemos la escala'.",
-        ok: true,
-        risk: 0,
-        comm: 25,
-        lean: 10,
-        fb: "✅ ¡Excelente manejo! Has priorizado la seguridad usando el lenguaje de escalada asertiva.",
-        debrief: "La técnica CUS (Concerned, Uncomfortable, Safety Issue) de TeamSTEPPS usa palabras gatillo para detener acciones inseguras de forma profesional y no hostil."
-      },
       {
         txt: "Preparar y administrar las 15 UI de insulina de inmediato. Al fin y al cabo, él es el especialista senior y tú debes respetar la jerarquía médica.",
         ok: false,
@@ -117,6 +198,15 @@ const events = [
         lean: -20,
         fb: "❌ Sumisión Jerárquica Peligrosa. Respetar una orden potencialmente peligrosa para evitar el conflicto es una causa frecuente de eventos adversos graves.",
         debrief: "En seguridad del paciente, la jerarquía se subordina a la evidencia y la seguridad clínica."
+      },
+      {
+        txt: "Detener al médico de forma asertiva y decirle: 'Doctor, estoy preocupado y me siento incómodo administrando 15 UI debido a la falla renal del paciente. Es un riesgo de seguridad por hipoglucemia. Por favor, revisemos la escala'.",
+        ok: true,
+        risk: 0,
+        comm: 25,
+        lean: 10,
+        fb: "✅ ¡Excelente manejo! Has priorizado la seguridad usando el lenguaje de escalada asertiva.",
+        debrief: "La técnica CUS (Concerned, Uncomfortable, Safety Issue) de TeamSTEPPS usa palabras gatillo para detener acciones inseguras de forma profesional y no hostil."
       },
       {
         txt: "Reducir por iniciativa propia la dosis a 5 UI de insulina e indicarlo en la gráfica de enfermería sin consultar de nuevo al médico.",
@@ -139,12 +229,21 @@ const events = [
     ]
   },
   {
-    title: "Situación 4: Discrepancia instrumental en Quirófano",
+    title: "Situación 6: Discrepancia instrumental en Quirófano",
     area: "QUIRÓFANO CENTRAL",
-    time: "🕒 01:45 PM",
+    time: "🕒 02:45 PM",
     context: "Finaliza una cirugía abdominal compleja de 4 horas. Al realizar el conteo de instrumental y gasas, la enfermera instrumentista nota que falta una compresa. El cirujano principal insiste en cerrar la incisión: 'Ya busqué bien. El conteo inicial de la caja de instrumental debió de estar mal. Cerremos para no alargar la anestesia'.",
     tool: "Poka-Yoke y Trabajo Estandarizado (Lean Healthcare)",
     opts: [
+      {
+        txt: "Solicitar la pausa quirúrgica e iniciar la búsqueda protocolizada en el campo, mesa de instrumental, sábanas y basura. Si la compresa no aparece, solicitar una radiografía portátil en quirófano antes de suturar la herida.",
+        ok: true,
+        risk: 0,
+        comm: 15,
+        lean: 20,
+        fb: "✅ ¡Protocolo de Seguridad Cumplido! El conteo es una barrera de seguridad inviolable.",
+        debrief: "El bloqueo procedimental de no cerrar hasta asegurar el conteo es un mecanismo Poka-Yoke (a prueba de fallas)."
+      },
       {
         txt: "Confiar en el cirujano y proceder con el cierre de la herida para evitar retrasar el quirófano e incrementar costos.",
         ok: false,
@@ -164,15 +263,6 @@ const events = [
         debrief: "El estándar de seguridad obliga a verificar la presencia antes de suturar los planos profundos."
       },
       {
-        txt: "Solicitar la pausa quirúrgica e iniciar la búsqueda protocolizada en el campo, mesa de instrumental, sábanas y basura. Si la compresa no aparece, solicitar una radiografía portátil en quirófano antes de suturar la herida.",
-        ok: true,
-        risk: 0,
-        comm: 15,
-        lean: 20,
-        fb: "✅ ¡Protocolo de Seguridad Cumplido! El conteo es una barrera de seguridad inviolable.",
-        debrief: "El bloqueo procedimental de no cerrar hasta asegurar el conteo es un mecanismo Poka-Yoke (a prueba de fallas)."
-      },
-      {
         txt: "Anotar la falta de la compresa en el libro de incidencias de quirófano y dejar una nota al equipo de reanimación para que palpen el abdomen cada hora.",
         ok: false,
         risk: 45,
@@ -184,9 +274,9 @@ const events = [
     ]
   },
   {
-    title: "Situación 5: Orden de Medicación Crítica bajo Presión",
+    title: "Situación 7: Orden de Medicación Crítica bajo Presión",
     area: "URGENCIAS - BOX DE REANIMACIÓN",
-    time: "🕒 03:20 PM",
+    time: "🕒 04:20 PM",
     context: "El box de reanimación está caótico. Entra un paciente politraumatizado en shock. En medio del ruido de monitores y alarmas, el médico te grita: 'Prepara una infusión de Noradrenalina, 8 miligramos en 250 de suero fisiológico y pásala a 15 mililitros por hora'.",
     tool: "Check-Back / Closed-Loop Communication (TeamSTEPPS)",
     opts: [
@@ -229,12 +319,21 @@ const events = [
     ]
   },
   {
-    title: "Situación 6: Alta médica apresurada por bloqueo de camas",
+    title: "Situación 8: Alta médica apresurada por bloqueo de camas",
     area: "PLANTA DE HOSPITALIZACIÓN",
-    time: "🕒 05:00 PM",
+    time: "🕒 05:45 PM",
     context: "El hospital está saturado y hay 6 pacientes esperando cama en Urgencias. La dirección te presiona para dar el alta a doña Carmen, de 82 años, quien ingresó por insuficiencia cardíaca. Se le ha modificado toda su medicación oral compleja. Carmen vive sola y su hija no llegará hasta dentro de dos horas.",
     tool: "Trabajo Estandarizado de Alta y Flujo de Valor (Lean Healthcare)",
     opts: [
+      {
+        txt: "Trasladar a Carmen a la sala de tránsito, pedirle que nos explique con sus palabras cómo tomará sus pastillas, llamar a su hija para informarle de los cambios y coordinar el alta con transporte programado.",
+        ok: true,
+        risk: 0,
+        comm: 20,
+        lean: 20,
+        fb: "✅ ¡Excelente gestión integral! Has garantizado la seguridad de la transición y liberado la cama del servicio principal.",
+        debrief: "El uso de salas de tránsito mantiene el flujo de camas mientras que el método 'Teach-Back' garantiza la adherencia farmacológica segura."
+      },
       {
         txt: "Firmar los papeles de alta, entregárselos a Carmen en mano, desearle suerte y pedirle que libere la cama inmediatamente para subir al siguiente paciente.",
         ok: false,
@@ -261,34 +360,16 @@ const events = [
         lean: -20,
         fb: "⚠️ Falsa Gestión de Salida. Enviar en taxi a una anciana frágil con dudas sobre su medicación aumenta el riesgo de caídas y errores de toma en el domicilio.",
         debrief: "El transporte acelerado no resuelve la falta de educación sobre el plan terapéutico."
-      },
-      {
-        txt: "Trasladar a Carmen a la sala de tránsito, pedirle que nos explique con sus palabras cómo tomará sus pastillas, llamar a su hija para informarle de los cambios y coordinar el alta con transporte programado.",
-        ok: true,
-        risk: 0,
-        comm: 20,
-        lean: 20,
-        fb: "✅ ¡Excelente gestión integral! Has garantizado la seguridad de la transición y liberado la cama del servicio principal.",
-        debrief: "El uso de salas de tránsito mantiene el flujo de camas mientras que el método 'Teach-Back' garantiza la adherencia farmacológica segura."
       }
     ]
   },
   {
-    title: "Situación 7: Verificación de Citostáticos de Alto Riesgo",
+    title: "Situación 9: Verificación de Citostáticos de Alto Riesgo",
     area: "ONCOLOGÍA PEDIÁTRICA / FARMACIA",
-    time: "🕒 06:30 PM",
+    time: "🕒 07:15 PM",
     context: "Se recibe en la planta de oncología un suero de Quimioterapia (Vincristina) para un paciente de 6 años. Al revisar la etiqueta, notas que la dosis impresa difiere ligeramente del peso registrado en el ingreso de hace 3 días. La farmacéutica te dice por teléfono: 'Tranquilo, reajustamos la dosis según la superficie corporal esta mañana, está bien'.",
     tool: "Doble Verificación Independiente (Independent Double-Check)",
     opts: [
-      {
-        txt: "Realizar una Doble Verificación Independiente con un segundo enfermero: recalcular de forma autónoma la superficie corporal con el peso actual y cotejar vial, dosis y vía antes de conectar.",
-        ok: true,
-        risk: 0,
-        comm: 20,
-        lean: 15,
-        fb: "✅ ¡Excelente Barrera de Seguridad! Has interceptado una potencial catástrofe farmacológica.",
-        debrief: "La doble verificación independiente (dos profesionales calculando por separado sin influenciarse) es el estándar obligatorio para citostáticos y medicamentos de alto riesgo."
-      },
       {
         txt: "Confiar en la palabra de la farmacéutica y administrar la medicación, ya que ellos son los expertos en farmacocinética.",
         ok: false,
@@ -297,6 +378,15 @@ const events = [
         lean: -15,
         fb: "❌ Ruptura del Control de Calidad. Asumir veracidad por teléfono sin verificar la hoja de cálculo original expone al paciente a sobredosificación grave.",
         debrief: "La confianza interpersonal no sustituye los controles procedimentales independientes en medicamentos de alto riesgo."
+      },
+      {
+        txt: "Realizar una Doble Verificación Independiente con un segundo enfermero: recalcular de forma autónoma la superficie corporal con el peso actual y cotejar vial, dosis y vía antes de conectar.",
+        ok: true,
+        risk: 0,
+        comm: 20,
+        lean: 15,
+        fb: "✅ ¡Excelente Barrera de Seguridad! Has interceptado una potencial catástrofe farmacológica.",
+        debrief: "La doble verificación independiente (dos profesionales calculando por separado sin influenciarse) es el estándar obligatorio para citostáticos y medicamentos de alto riesgo."
       },
       {
         txt: "Devolver el preparado a Farmacia de inmediato sin administrarlo y pedir que vuelvan a fabricar otro suero desde cero sin revisar los números.",
@@ -319,12 +409,21 @@ const events = [
     ]
   },
   {
-    title: "Situación 8: Identificación Activa previa a Hemoderivados",
+    title: "Situación 10: Identificación Activa previa a Hemoderivados",
     area: "PLANTA DE HEMATOLOGÍA",
-    time: "🕒 08:00 PM",
+    time: "🕒 08:30 PM",
     context: "Vas a transfundir un concentrado de hematíes a un paciente con anemia severa. La habitación es doble y ambos pacientes tienen apellidos similares ('Martínez López' y 'Martínez Gómez'). El paciente parece adormilado.",
     tool: "Identificación Activa con 2 Identificadores Unívocos",
     opts: [
+      {
+        txt: "Verificar en la pulsera de identificación el nombre completo y número de historia clínica, pedir al paciente que diga su nombre completo y fecha de nacimiento de forma abierta, y cotejar la bolsa a pie de cama con un segundo profesional.",
+        ok: true,
+        risk: 0,
+        comm: 25,
+        lean: 10,
+        fb: "✅ ¡Barrera Transfusional Perfecta! Has asegurado los 2 identificadores unívocos a pie de cama.",
+        debrief: "El cotejo activo a pie de cama con 2 identificadores independientes previene el evento adverso transfusional (incompatibilidad ABO)."
+      },
       {
         txt: "Mirar la etiqueta de la bolsa de sangre, verificar el número de cama (Cama 12-A) y conectar la vía si la cama coincide.",
         ok: false,
@@ -344,15 +443,6 @@ const events = [
         debrief: "La identificación activa exige preguntas abiertas ('¿Cuál es su nombre completo y fecha de nacimiento?') combinadas con el escaneo de pulsera."
       },
       {
-        txt: "Verificar en la pulsera de identificación el nombre completo y número de historia clínica, pedir al paciente que diga su nombre completo y fecha de nacimiento de forma abierta, y cotejar la bolsa a pie de cama con un segundo profesional.",
-        ok: true,
-        risk: 0,
-        comm: 25,
-        lean: 10,
-        fb: "✅ ¡Barrera Transfusional Perfecta! Has asegurado los 2 identificadores unívocos a pie de cama.",
-        debrief: "El cotejo activo a pie de cama con 2 identificadores independientes previene el evento adverso transfusional (incompatibilidad ABO)."
-      },
-      {
         txt: "Llamar a la esposa del paciente por teléfono para que te confirme desde su casa la fecha de nacimiento antes de abrir el sistema de infusión.",
         ok: false,
         risk: 25,
@@ -364,57 +454,66 @@ const events = [
     ]
   },
   {
-    title: "Situación 9: Fatiga de Alarmas en la Guardia Nocturna",
-    area: "UNIDAD DE CUIDADOS INTERMEDIOS",
-    time: "🕒 09:30 PM",
-    context: "Son las 02:00 AM. El monitor del paciente de la cama 3 no para de emitir una alarma amarilla por 'Artefacto / Derivación despegada'. El paciente se mueve mucho y la alarma suena cada 3 minutos, agotando al personal de guardia.",
-    tool: "Gestión Lean de Alarmas y Verificación de Sensores",
+    title: "Situación 11: Traspaso de Guardia en Salud Mental en Urgencias",
+    area: "URGENCIAS - SALUD MENTAL",
+    time: "🕒 09:45 PM",
+    context: "Traspasas la guardia de un box de observación con un paciente joven con ideación autolítica severa que ingresó por ingesta de tóxicos. Al revisar la habitación antes del relevo, notas un cable de cargador largo olvidado sobre la mesa de noche y unas tijeras quirúrgicas sobre la bandeja de curas.",
+    tool: "Checklist de Entorno Seguro y Traspaso SBAR de Salud Mental",
     opts: [
       {
-        txt: "Apagar el volumen del monitor central durante el resto de la noche para poder concentrarse en los demás pacientes sin interrupciones.",
-        ok: false,
-        risk: 45,
-        comm: -25,
-        lean: -20,
-        fb: "❌ Silenciamiento Indiscriminado Peligroso. Apagar las alarmas centrales desprotege completamente al paciente ante una arritmia real.",
-        debrief: "La 'fatiga de alarmas' lleva al silenciamiento imprudente, una causa frecuente de paros no detectados a tiempo."
-      },
-      {
-        txt: "Acudir inmediatamente a la habitación, evaluar el estado clínico del paciente, cambiar los electrodos despegados por unos nuevos con buena adhesión y reajustar los límites de alarma personalizados según la condición del paciente.",
-        ok: true,
-        risk: 0,
-        comm: 15,
-        lean: 20,
-        fb: "✅ ¡Excelente Gestión de Alarmas! Has eliminado la causa raíz de la falsa alarma garantizando la monitorización real.",
-        debrief: "El reemplazo de consumibles defectuosos y la personalización de límites eliminas las falsas alarmas (desperdicio Lean) y mantienen alerta al equipo."
-      },
-      {
-        txt: "Poner el monitor en modo 'Demostración' para que muestre un trazado simulado perfecto y no suene mientras el paciente duerme.",
+        txt: "Dejar los objetos sobre la mesa pensando que el turno entrante se encargará de ordenar la habitación durante la ronda nocturna de las 23:00.",
         ok: false,
         risk: 50,
-        comm: -30,
-        lean: -30,
-        fb: "❌ Negligencia Grave y Falsificación de Datos. Simular datos vitales en un monitor oculta la parada cardíaca o deterioro del paciente.",
-        debrief: "Jamás se debe alterar el modo del equipo para fingir estabilidad clínica."
+        comm: -25,
+        lean: -20,
+        fb: "❌ Omisión Crítica de Entorno Seguro. Permitir objetos punzantes o cables con potencial de ahorcamiento en la habitación de un paciente autolítico crea una brecha letal.",
+        debrief: "El 'Entorno Seguro' en Salud Mental requiere la eliminación inmediata de elementos de riesgo de autolesión como norma Poka-Yoke ambiental de obligado cumplimiento."
       },
       {
-        txt: "Aumentar la dosis de sedante prescrita al paciente para que no se mueva y no despegue los cables.",
+        txt: "Retirar inmediatamente el cable y las tijeras, despejar el entorno de cualquier elemento de riesgo y realizar el traspaso estructurado al equipo entrante destacando el nivel de riesgo de autolisis y el estado del entorno.",
+        ok: true,
+        risk: 0,
+        comm: 25,
+        lean: 15,
+        fb: "✅ ¡Excelente Control del Entorno y Traspaso Seguro! Has neutralizado una amenaza inminente antes de la entrega de guardia.",
+        debrief: "En Salud Mental, la combinación del saneamiento ambiental del entorno (Poka-Yoke) con el traspaso estructurado SBAR/I-PASS es la mayor garantía contra eventos centinela de autolesión."
+      },
+      {
+        txt: "Regañar al paciente por tener el cargador sobre la mesa y amenazarlo con quitarle el móvil si no se duerme de inmediato.",
         ok: false,
-        risk: 40,
+        risk: 35,
         comm: -20,
         lean: -15,
-        fb: "❌ Restricción Química Injustificada. Sedar a un paciente por fallos en los electrodos viola los principios éticos y de seguridad.",
-        debrief: "El problema técnico de los electrodos se resuelve en el equipo, no sobremedando al paciente."
+        fb: "⚠️ Intervención Punitiva e Ineficaz. La actitud punitiva incrementa la angustia del paciente y deteriora la alianza terapéutica.",
+        debrief: "La retirada de elementos de riesgo se realiza con actitud empática y firmeza profesional, no como un castigo."
+      },
+      {
+        txt: "Anotar la presencia de las tijeras en la hoja de observaciones de enfermería y cerrar la puerta del box con llave sin retirar los objetos.",
+        ok: false,
+        risk: 45,
+        comm: -30,
+        lean: -25,
+        fb: "❌ Encierro Peligroso con Riesgo Interno. Dejar objetos de riesgo dentro de un box cerrado incrementa la probabilidad de un desenlace fatal sin posibilidad de auxilio rápido.",
+        debrief: "El registro no elimina el objeto peligroso del alcance del paciente."
       }
     ]
   },
   {
-    title: "Situación 10: Traslado Intrahospitalario de Paciente Crítico",
+    title: "Situación 12: Traslado Intrahospitalario de Paciente Crítico",
     area: "UCI / RADIOLOGÍA (TAC)",
     time: "🕒 11:00 PM",
     context: "Debes trasladar urgentemente a un paciente intubado en ventilación mecánica desde la UCI hasta el escáner (TAC) en la planta baja. El celador tiene prisa y dice: 'Vamos rápido, el escáner se queda libre ahora'. Observas que la bala de oxígeno de transporte marca 50 bar (un tercio de capacidad).",
     tool: "Checklist de Traslado Seguro de Paciente Crítico",
     opts: [
+      {
+        txt: "Pausar la salida 2 minutos para reemplazar la bala de oxígeno por una llena, verificar la batería del respirador de transporte, llevar maletín de reanimación y confirmar que el equipo del TAC está listo para recibirlo a la llegada.",
+        ok: true,
+        risk: 0,
+        comm: 20,
+        lean: 20,
+        fb: "✅ ¡Traslado Seguro y Eficiente! Has prevenido fallos de soporte vital durante la transición.",
+        debrief: "El checklist estandarizado de transporte intrahospitalario asegura autonomía de O2, energía y comunicación previa de destino."
+      },
       {
         txt: "Iniciar el traslado inmediatamente para no perder la cita del escáner, confiando en que el trayecto solo dura 10 minutos.",
         ok: false,
@@ -441,15 +540,6 @@ const events = [
         lean: -20,
         fb: "⚠️ Omisión diagnóstica. Cancelar un escáner urgente impide diagnosticar complicaciones vasculares o hemorrágicas críticas.",
         debrief: "El riesgo del traslado se mitiga con preparación protocolizada, no suspendiendo pruebas indicadas."
-      },
-      {
-        txt: "Pausar la salida 2 minutos para reemplazar la bala de oxígeno por una llena, verificar la batería del respirador de transporte, llevar maletín de reanimación y confirmar que el equipo del TAC está listo para recibirlo a la llegada.",
-        ok: true,
-        risk: 0,
-        comm: 20,
-        lean: 20,
-        fb: "✅ ¡Traslado Seguro y Eficiente! Has prevenido fallos de soporte vital durante la transición.",
-        debrief: "El checklist estandarizado de transporte intrahospitalario asegura autonomía de O2, energía y comunicación previa de destino."
       }
     ]
   }
@@ -463,7 +553,7 @@ let communicationScore = 100;
 // Variables de Audio Synthesizer (Web Audio API)
 let audioCtx = null;
 let heartbeatIntervalId = null;
-let currentBpm = 60;
+let currentBpm = 65;
 let isAudioEnabled = true;
 
 // Inicializa el AudioContext
@@ -476,7 +566,73 @@ function initAudio() {
   }
 }
 
-// Genera un pitido dinámico usando osciladores
+// =======================================================
+// SINTETIZADOR DE LATIDO CARDÍACO ACOUSTICO REALISTA (LUB-DUB)
+// =======================================================
+function playLubDub() {
+  if (!isAudioEnabled) return;
+  initAudio();
+  if (!audioCtx) return;
+
+  try {
+    const now = audioCtx.currentTime;
+
+    // --- PRIMER LATIDO: LUB (S1) ---
+    const osc1 = audioCtx.createOscillator();
+    const gain1 = audioCtx.createGain();
+    const filter1 = audioCtx.createBiquadFilter();
+
+    filter1.type = 'lowpass';
+    filter1.frequency.setValueAtTime(150, now);
+
+    osc1.type = 'sine';
+    osc1.frequency.setValueAtTime(85, now);
+    osc1.frequency.exponentialRampToValueAtTime(32, now + 0.11);
+
+    gain1.gain.setValueAtTime(0.38, now);
+    gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.11);
+
+    osc1.connect(filter1);
+    filter1.connect(gain1);
+    gain1.connect(audioCtx.destination);
+
+    osc1.start(now);
+    osc1.stop(now + 0.11);
+
+    // --- SEGUNDO LATIDO: DUB (S2) (0.13 segundos después) ---
+    const delayS2 = 0.13;
+    const osc2 = audioCtx.createOscillator();
+    const gain2 = audioCtx.createGain();
+    const filter2 = audioCtx.createBiquadFilter();
+
+    filter2.type = 'lowpass';
+    filter2.frequency.setValueAtTime(170, now + delayS2);
+
+    osc2.type = 'sine';
+    osc2.frequency.setValueAtTime(98, now + delayS2);
+    osc2.frequency.exponentialRampToValueAtTime(40, now + delayS2 + 0.09);
+
+    gain2.gain.setValueAtTime(0.26, now + delayS2);
+    gain2.gain.exponentialRampToValueAtTime(0.001, now + delayS2 + 0.09);
+
+    osc2.connect(filter2);
+    filter2.connect(gain2);
+    gain2.connect(audioCtx.destination);
+
+    osc2.start(now + delayS2);
+    osc2.stop(now + delayS2 + 0.09);
+  } catch (error) {
+    console.error("Fallo al reproducir el latido cardíaco sintetizado:", error);
+  }
+}
+
+// Sonido de flatline (Línea de paro cardíaco)
+function playFlatline() {
+  if (heartbeatIntervalId) clearInterval(heartbeatIntervalId);
+  playSound(440, 4.0, 'sawtooth', 0.15);
+}
+
+// Genera efectos de audio adicionales (Éxito / Error)
 function playSound(freq, duration, type = 'sine', volume = 0.1) {
   if (!isAudioEnabled) return;
   initAudio();
@@ -498,22 +654,11 @@ function playSound(freq, duration, type = 'sine', volume = 0.1) {
     osc.start();
     osc.stop(audioCtx.currentTime + duration);
   } catch (error) {
-    console.error("Fallo al reproducir audio sintetizado:", error);
+    console.error("Fallo al reproducir sonido secundario:", error);
   }
 }
 
-// Sonido de ECG Beep estándar
-function playHeartbeatBeep() {
-  playSound(880, 0.08, 'sine', 0.08);
-}
-
-// Sonido de flatline (Línea de paro cardíaco)
-function playFlatline() {
-  if (heartbeatIntervalId) clearInterval(heartbeatIntervalId);
-  playSound(440, 4.0, 'sawtooth', 0.15);
-}
-
-// Sonido al acertar (Acorde armónico ascendente)
+// Sonido al acertar (Acorde armónico de victoria)
 function playSuccessSound() {
   setTimeout(() => playSound(523.25, 0.1, 'sine', 0.12), 0);    // C5
   setTimeout(() => playSound(659.25, 0.1, 'sine', 0.12), 80);   // E5
@@ -534,7 +679,7 @@ function playCodeRedAlarm() {
   }, 200);
 }
 
-// Bucle dinámico del electrocardiograma
+// Bucle dinámico del latido cardíaco (Lub-Dub)
 function updateHeartbeatLoop() {
   if (heartbeatIntervalId) clearInterval(heartbeatIntervalId);
   
@@ -545,17 +690,17 @@ function updateHeartbeatLoop() {
 
   // Determinar BPM y ritmo basado en el riesgo acumulado
   if (riskLevel < 40) {
-    currentBpm = 65; // Ritmo normal
+    currentBpm = 65; // Ritmo fisiológico normal
   } else if (riskLevel < 70) {
-    currentBpm = 95; // Ritmo acelerado (Taquicardia moderada)
+    currentBpm = 100; // Taquicardia moderada
   } else {
-    currentBpm = 140; // Taquicardia severa / Alerta
+    currentBpm = 145; // Taquicardia severa
   }
 
   const intervalMs = (60 / currentBpm) * 1000;
 
   heartbeatIntervalId = setInterval(() => {
-    playHeartbeatBeep();
+    playLubDub(); // Reproduce el sonido de latido "lub-dub"
     
     if (riskLevel >= 70 && Math.random() > 0.6) {
       playCodeRedAlarm();
@@ -563,7 +708,7 @@ function updateHeartbeatLoop() {
   }, intervalMs);
 }
 
-// Actualiza las variables CSS de color y velocidad del LED en base al riesgo
+// Actualiza las variables CSS de color, telemetría y ritmo LED en base al riesgo
 function updateRiskUI() {
   const fill = document.getElementById("risk-fill");
   const val = document.getElementById("risk-val");
@@ -761,13 +906,10 @@ function nextEvent() {
 
 // Finaliza el turno y muestra los resultados
 function endShift(adverseEvent = false) {
-  // Limpiar beeps
   if (heartbeatIntervalId) clearInterval(heartbeatIntervalId);
 
-  // Cambiar pantalla
   showScreen("screen-result");
 
-  // Rellenar datos
   document.getElementById("final-risk").innerText = `${riskLevel}%`;
   document.getElementById("final-comm").innerText = `${communicationScore}%`;
   document.getElementById("final-lean").innerText = `${efficiencyLevel}%`;
@@ -787,7 +929,7 @@ function endShift(adverseEvent = false) {
     msgBox.innerHTML = `
       <h3 style="color: var(--color-danger)">🚨 Centinela Clínico Activado</h3>
       <p>El riesgo acumulado superó el límite de seguridad (100%). Se produjo un error grave de traspaso que derivó en un evento adverso centinela para el paciente. Tu equipo debió ser intervenido por la Comisión de Calidad y Seguridad.</p>
-      <p style="margin-top: 10px;"><em>Recomendación:</em> Revisa el manual de herramientas al final de la página y vuelve a intentarlo priorizando las mnemotecnias de TeamSTEPPS.</p>
+      <p style="margin-top: 10px;"><em>Recomendación:</em> Revisa el manual de herramientas al final de la página y vuelve a intentarlo priorizando las mnemotecnias de TeamSTEPPS y Lean Healthcare.</p>
     `;
   } else {
     badge.innerText = "GUARDIA COMPLETADA";
@@ -795,20 +937,19 @@ function endShift(adverseEvent = false) {
     badge.style.color = "#10b981";
     badge.style.borderColor = "rgba(16, 185, 129, 0.4)";
     
-    // Clasificar según desempeño
     let statusTitle = "";
     let statusDesc = "";
-    if (riskLevel === 0 && communicationScore >= 180 && efficiencyLevel >= 150) {
+    if (riskLevel === 0 && communicationScore >= 200 && efficiencyLevel >= 170) {
       statusTitle = "🏆 Guardia de Excelencia Absoluta";
-      statusDesc = "¡Espectacular! Has completado las 10 situaciones clínicas con 0% de riesgo añadido. Demostraste un dominio perfecto del juicio clínico y de las herramientas SBAR, I-PASS, CUS, Poka-Yoke y Doble Verificación. Eres un líder ejemplar en cultura de seguridad.";
+      statusDesc = "¡Espectacular! Has completado las 12 situaciones clínicas (incluyendo Pediatría y Salud Mental) con 0% de riesgo añadido. Demostraste un dominio perfecto del juicio clínico, SBAR, I-PASS, CUS, Poka-Yoke, Doble Verificación y Desescalada Verbal. Eres un líder ejemplar en cultura de seguridad.";
       playSound(600, 0.15, 'sine', 0.1);
       setTimeout(() => playSound(800, 0.3, 'sine', 0.1), 150);
     } else if (riskLevel < 40) {
       statusTitle = "🏥 Guardia Segura";
-      statusDesc = "Buen trabajo. Mantuviste al paciente a salvo durante tu guardia de 10 situaciones. Cometiste algún pequeño desliz pero lo corregiste de inmediato utilizando los filtros de seguridad del hospital.";
+      statusDesc = "Buen trabajo. Mantuviste a los pacientes a salvo durante tu guardia de 12 situaciones. Cometiste algún pequeño desliz pero lo corregiste de inmediato utilizando los filtros de seguridad del hospital.";
     } else {
       statusTitle = "⚠️ Guardia de Alto Riesgo";
-      statusDesc = "Guardia concluida, pero el paciente estuvo al borde de un incidente grave. La falta de comunicación asertiva obligó a redoblar esfuerzos al final del turno. Deberías repasar las técnicas de bucle cerrado.";
+      statusDesc = "Guardia concluida, pero los pacientes estuvieron al borde de incidentes graves. La falta de comunicación asertiva obligó a redoblar esfuerzos al final del turno. Deberías repasar las técnicas de bucle cerrado.";
     }
 
     msgBox.innerHTML = `
