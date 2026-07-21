@@ -342,17 +342,37 @@ function updateRiskUI() {
   const ledFrame = document.getElementById("led-frame");
   const ecgPath = document.getElementById("ecg-path");
 
+  // Elementos de telemetría de signos vitales
+  const hrElem = document.getElementById("vital-hr");
+  const bpElem = document.getElementById("vital-bp");
+  const spo2Elem = document.getElementById("vital-spo2");
+
   // Ajustes de límites
   riskLevel = Math.max(0, Math.min(100, riskLevel));
   fill.style.width = riskLevel + "%";
 
-  // Controlar ritmo de animación del ECG visual
+  // Controlar ritmo de animación del ECG visual y telemetría
   if (riskLevel < 40) {
     ecgPath.style.animationDuration = "2.5s";
+    if (hrElem) hrElem.innerHTML = `${65 + Math.floor(riskLevel / 4)} <small>bpm</small>`;
+    if (bpElem) bpElem.innerText = `120/80`;
+    if (spo2Elem) spo2Elem.innerHTML = `98<small>%</small>`;
   } else if (riskLevel < 70) {
     ecgPath.style.animationDuration = "1.6s";
-  } else {
+    if (hrElem) hrElem.innerHTML = `${102 + Math.floor((riskLevel - 40) / 2)} <small>bpm</small>`;
+    if (bpElem) bpElem.innerText = `145/95`;
+    if (spo2Elem) spo2Elem.innerHTML = `93<small>%</small>`;
+  } else if (riskLevel < 100) {
     ecgPath.style.animationDuration = "0.9s";
+    if (hrElem) hrElem.innerHTML = `${140 + (riskLevel - 70)} <small>bpm</small>`;
+    if (bpElem) bpElem.innerText = `85/50`;
+    if (spo2Elem) spo2Elem.innerHTML = `86<small>%</small>`;
+  } else {
+    // Paro / Flatline (100%)
+    ecgPath.style.animationDuration = "0s";
+    if (hrElem) hrElem.innerHTML = `0 <small>bpm</small>`;
+    if (bpElem) bpElem.innerText = `0/0`;
+    if (spo2Elem) spo2Elem.innerHTML = `--<small>%</small>`;
   }
 
   // Colores dinámicos y estilos LED
@@ -421,9 +441,9 @@ function loadEvent() {
     const btn = document.createElement("button");
     btn.className = "opt-btn";
     
-    // Indicador visual de opción (A, B, C)
+    // Indicador visual con badge estilizado (A, B, C)
     const letter = String.fromCharCode(65 + idx); // A, B, C
-    btn.innerHTML = `<span style="color: var(--text-bright-blue); font-weight: 700; min-width: 20px;">${letter}.</span> <span>${opt.txt}</span>`;
+    btn.innerHTML = `<span class="opt-badge">${letter}</span> <span>${opt.txt}</span>`;
     
     btn.onclick = () => selectOption(btn, opt);
     grid.appendChild(btn);

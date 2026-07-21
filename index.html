@@ -21,18 +21,19 @@
     <div id="screen-start" class="screen active">
       <div class="brand">
         <div class="brand-icon">⚡</div>
-        <span class="badge">SIMULADOR CLÍNICO</span>
+        <span class="badge badge-glow">SIMULADOR CLÍNICO DE SEGURIDAD</span>
       </div>
       <h1 class="title-main">Guardias de Alto Riesgo</h1>
-      <p class="subtitle">Desafío de Traspaso Seguro y Seguridad del Paciente</p>
+      <p class="subtitle">Simulador de Traspaso Seguro y Toma de Decisiones Clínicas</p>
       
       <div class="intro-card">
-        <p>Estás a punto de iniciar una <strong>guardia médica de 12 horas</strong>. Tu objetivo es coordinar traspasos de pacientes y tomar decisiones críticas usando herramientas clave:</p>
-        <ul class="intro-tools">
-          <li><strong>TeamSTEPPS:</strong> Comunicación estructurada (SBAR, I-PASS, CUS, Check-back).</li>
-          <li><strong>Lean Healthcare:</strong> Flujos eficientes, prevención de errores (Poka-Yoke) y estandarización.</li>
-        </ul>
-        <p class="intro-alert">⚠️ Mantén el <strong>Riesgo Acumulado</strong> bajo control o tu paciente sufrirá un evento adverso grave.</p>
+        <p>Asumes el rol de coordinador en una <strong>guardia hospitalaria de 12 horas</strong>. Tu misión es tomar decisiones en situaciones críticas de traspaso y atención, evaluando cada caso con puro criterio clínico.</p>
+        <div class="intro-kpis">
+          <div class="kpi-tag">🛡️ Seguridad del Paciente</div>
+          <div class="kpi-tag">🗣️ Comunicación Asertiva</div>
+          <div class="kpi-tag">⚙️ Eficiencia Operativa</div>
+        </div>
+        <p class="intro-alert">⚠️ Mantén el <strong>Riesgo Acumulado</strong> controlado. Si el riesgo alcanza el 100%, el paciente sufrirá un evento adverso centinela.</p>
       </div>
 
       <div class="audio-control-start">
@@ -40,7 +41,7 @@
           <input type="checkbox" id="audio-toggle-start" checked>
           <span class="switch-slider"></span>
         </label>
-        <span>Activar Monitor de Audio (Beeps del ECG y alarmas)</span>
+        <span>Activar Monitor de Audio (ECG Beeps, Alarmas de Código Rojo)</span>
       </div>
 
       <button class="btn-primary" onclick="startGame()">Iniciar Guardia (08:00 AM) →</button>
@@ -51,8 +52,25 @@
       <!-- CABECERA DEL MONITOR -->
       <div class="monitor-header">
         <div class="monitor-meta">
-          <span class="badge badge-pulse" id="area-badge">URGENCIAS</span>
-          <span class="shift-timer" id="clock-display">🕒 08:00 AM</span>
+          <div class="meta-left">
+            <span class="badge badge-pulse" id="area-badge">URGENCIAS</span>
+            <span class="shift-timer" id="clock-display">🕒 08:00 AM</span>
+          </div>
+          <!-- Signos Vitales en Tiempo Real -->
+          <div class="vitals-strip">
+            <div class="vital-item">
+              <span class="vital-label">FC</span>
+              <span class="vital-value" id="vital-hr">72 <small>bpm</small></span>
+            </div>
+            <div class="vital-item">
+              <span class="vital-label">PA</span>
+              <span class="vital-value" id="vital-bp">120/80</span>
+            </div>
+            <div class="vital-item">
+              <span class="vital-label">SpO2</span>
+              <span class="vital-value" id="vital-spo2">98<small>%</small></span>
+            </div>
+          </div>
         </div>
         
         <!-- Electrocardiograma Animado SVG -->
@@ -88,7 +106,7 @@
           </div>
         </div>
 
-        <!-- Tarjeta Comunicación (TeamSTEPPS) -->
+        <!-- Tarjeta Comunicación -->
         <div class="stat-card">
           <div class="stat-title">
             <span>Comunicación</span>
@@ -105,7 +123,7 @@
         <div class="event-meta">
           <span class="event-step-number" id="event-step">Situación 1 de 6</span>
           <div class="audio-switch-game">
-            <span>🔊</span>
+            <span>🔊 Sound</span>
             <label class="switch-container">
               <input type="checkbox" id="audio-toggle-game" checked>
               <span class="switch-slider"></span>
@@ -116,7 +134,7 @@
         <h2 id="event-title" class="event-title">Cargando evento...</h2>
         <div id="context-box" class="context-box"></div>
 
-        <!-- Opciones del Jugador -->
+        <!-- Opciones del Jugador (Sin etiquetas ni pistas) -->
         <div id="options-grid" class="options-grid"></div>
 
         <!-- Retroalimentación / Debriefing -->
@@ -126,7 +144,7 @@
             <h4 id="feedback-title">Resultado de la decisión</h4>
             <p id="feedback-text"></p>
             <div class="debrief-box" id="debrief-box">
-              <h5>📚 Fundamento Teórico:</h5>
+              <h5>📚 Fundamento Teórico y Metodología:</h5>
               <p id="debrief-text"></p>
             </div>
           </div>
@@ -142,7 +160,7 @@
         <span class="badge" id="result-status-badge">GUARDIA FINALIZADA</span>
       </div>
       <h1 class="title-main" id="result-title">Fin del Turno</h1>
-      <p class="subtitle" id="result-subtitle">Reporte de Desempeño Clínico</p>
+      <p class="subtitle" id="result-subtitle">Reporte de Desempeño Clínico y Seguridad</p>
 
       <!-- Panel de Puntuación de Guardia -->
       <div class="score-board">
@@ -165,7 +183,7 @@
 
       <!-- Acordeón / Guía de Herramientas Aprendidas -->
       <div class="tools-guide">
-        <h3>Manual Rápido de Herramientas Clínicas</h3>
+        <h3>Manual de Referencia de Herramientas Clínicas</h3>
         
         <div class="guide-item">
           <button class="guide-trigger" onclick="toggleGuide(this)">
