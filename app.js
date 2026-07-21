@@ -29,12 +29,12 @@ const events = [
         debrief: "La comunicación efectiva debe ser asertiva y objetiva. SBAR evita valoraciones de culpa y se enfoca en los hechos clínicos objetivos para forzar una respuesta colaborativa y segura."
       },
       {
-        txt: "[SBAR] 'Doctor, le llamo por una sospecha de sepsis (S). Es el Sr. García, posoperado de colectomía ayer (B). Presenta 38.6°C, 118 lpm y abdomen agudo (A). Requiero valoración presencial inmediata en menos de 15 minutos (R)'.",
+        txt: "'Doctor, le llamo por una sospecha de sepsis. Es el Sr. García, posoperado de colectomía ayer. Presenta 38.6°C, 118 lpm y abdomen agudo. Requiero su valoración presencial inmediata en menos de 15 minutos'.",
         ok: true,
         risk: 0,
         comm: 20,
         lean: 10,
-        fb: "✅ ¡Excelente decisión! SBAR aplicado de manera impecable.",
+        fb: "✅ ¡Excelente decisión! Has comunicado la situación, los antecedentes, la evaluación y la recomendación clara.",
         debrief: "Estructurar la llamada con la mnemotecnia SBAR le da al cirujano una radiografía clara en 30 segundos. Al concluir con una Recomendación explícita ('valoración en 15 min'), se establece un acuerdo de acción y tiempo claro."
       }
     ]
@@ -65,7 +65,7 @@ const events = [
         debrief: "El traspaso seguro requiere interacción bidireccional activa. Dejar notas escritas viola el principio de comunicación interactiva y fomenta el error latente."
       },
       {
-        txt: "[I-PASS] Reunirse en una sala tranquila, repasar sistemáticamente cada paciente clasificándolo por severidad (I), dando un resumen sintético (P), lista de acciones (A), conciencia de planes de contingencia (S) y pedir síntesis verbal (S).",
+        txt: "Reunirse en una sala tranquila, repasar sistemáticamente a cada paciente detallando la gravedad, resumen clínico, tareas pendientes, contingencias y solicitar que el receptor confirme sintetizando la información.",
         ok: true,
         risk: 0,
         comm: 20,
@@ -101,12 +101,12 @@ const events = [
         debrief: "Aunque el objetivo de seguridad es correcto, la forma genera defensas emocionales. Se debe utilizar un método asertivo que escale el problema de forma constructiva y profesional."
       },
       {
-        txt: "[CUS] Detener al médico y decirle: 'Doctor, estoy preocupado (C). Me siento incómodo (U) con una dosis de 15 UI debido a la falla renal del paciente. Es un tema de seguridad (S) por riesgo de hipoglucemia extrema. Por favor, revisemos la escala'.",
+        txt: "Detener al médico de forma asertiva y decirle: 'Doctor, estoy preocupado y me siento incómodo administrando 15 UI debido a la falla renal del paciente. Es un riesgo de seguridad por hipoglucemia. Por favor, revisemos la escala'.",
         ok: true,
         risk: 0,
         comm: 25,
         lean: 10,
-        fb: "✅ ¡Excelente manejo! Has priorizado la seguridad usando el lenguaje estandarizado CUS.",
+        fb: "✅ ¡Excelente manejo! Has priorizado la seguridad usando el lenguaje de escalada asertiva.",
         debrief: "La técnica CUS (Concerned, Uncomfortable, Safety Issue) de TeamSTEPPS activa palabras gatillo que el personal clínico reconoce inmediatamente como una alerta de seguridad, permitiendo detener la acción para verificarla de forma no hostil."
       }
     ]
@@ -137,7 +137,7 @@ const events = [
         debrief: "El estándar internacional de seguridad obliga a verificar la presencia antes de suturar los planos anatómicos profundos. Tomar atajos metodológicos perpetúa el riesgo."
       },
       {
-        txt: "[Poka-Yoke] Detener el proceso de cierre ('Andon Cord'). Exigir la búsqueda protocolizada en campo quirúrgico, mesa de instrumental, sábanas y basura. Si persiste la discrepancia, tomar una radiografía portátil en el propio quirófano antes de cerrar.",
+        txt: "Solicitar la pausa quirúrgica e iniciar la búsqueda protocolizada en el campo, mesa de instrumental, sábanas y basura. Si la compresa no aparece, solicitar una radiografía portátil en quirófano antes de suturar la herida.",
         ok: true,
         risk: 0,
         comm: 15,
@@ -173,7 +173,7 @@ const events = [
         debrief: "La confirmación verbal vacía no cierra el bucle. Es obligatorio repetir los datos numéricos y de dosificación exactos para asegurar la coincidencia mental."
       },
       {
-        txt: "[Check-back] Repetir en voz alta mirándolo: 'Doctor, confirmo orden: preparo Noradrenalina de 8 miligramos en 250 mililitros de suero fisiológico para infundir a 15 mililitros por hora. ¿Es correcto?'. Esperar a que diga 'Correcto'.",
+        txt: "Repetir en voz alta mirándolo directamente: 'Doctor, confirmo la orden: preparo Noradrenalina de 8 mg en 250 ml de suero fisiológico para infundir a 15 ml/h. ¿Es correcto?'. Y esperar su confirmación verbal.",
         ok: true,
         risk: 0,
         comm: 25,
@@ -209,7 +209,7 @@ const events = [
         debrief: "Ignorar el flujo global del hospital es una solución localista que desplaza el riesgo hacia Urgencias, donde los pacientes en espera sufren demoras de atención crítica."
       },
       {
-        txt: "[Trabajo Estandarizado] Mantener a Carmen en la sala de tránsito, usar el método 'Teach-Back' (pedirle que nos explique cómo tomará sus pastillas), llamar por teléfono a su hija para informarle y coordinar el alta con transporte programado.",
+        txt: "Trasladar a Carmen a la sala de tránsito, pedirle que nos explique con sus palabras cómo tomará sus pastillas, llamar a su hija para informarle de los cambios y coordinar el alta con transporte programado.",
         ok: true,
         risk: 0,
         comm: 20,
