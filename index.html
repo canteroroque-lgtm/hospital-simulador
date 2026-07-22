@@ -12,123 +12,133 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="true"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Spectral:wght@500;600;700;800&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet"/>
   <style>
-    body { margin:0; padding:0; box-sizing:border-box; }
+    body { margin:0; padding:0; box-sizing:border-box; background:#dbe6ee; }
     *, *::before, *::after { box-sizing:border-box; }
-    @keyframes led-glow-normal { 0% { opacity:0.35; } 100% { opacity:1; } }
-    @keyframes led-critical-blink { 0% { opacity:0.3; } 100% { opacity:1; } }
+    a { color:#2b7fa4; } a:hover { color:#1f6284; }
     @keyframes ecg-draw { to { stroke-dashoffset:0; } }
-    @keyframes badge-pulse-anim { 0%,100% { box-shadow:0 0 0 0 rgba(56,189,248,0.2); } 50% { box-shadow:0 0 12px 2px rgba(56,189,248,0.25); } }
+    @keyframes soft-pulse { 0%,100% { box-shadow:0 0 0 0 rgba(43,127,164,0.18); } 50% { box-shadow:0 0 0 5px rgba(43,127,164,0); } }
     @keyframes slide-up { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes crit-blink { 0% { opacity:0.25; } 100% { opacity:0.9; } }
+    @keyframes ring-spin { to { transform:rotate(360deg); } }
+    ::-webkit-scrollbar { width:8px; } ::-webkit-scrollbar-thumb { background:rgba(16,49,79,0.18); border-radius:8px; }
   </style>
 </helmet>
 
-<div style="font-family:'Inter',-apple-system,sans-serif; background:#070a12; color:#f8fafc; min-height:100vh; display:flex; justify-content:center; align-items:center; padding:16px; position:relative; overflow-x:hidden;">
+<div style="font-family:'Source Sans 3',-apple-system,sans-serif; background:radial-gradient(circle at 50% 0%, #eef4f8 0%, #d7e3ec 60%, #c9d9e4 100%); color:#10314f; min-height:100vh; display:flex; justify-content:center; align-items:center; padding:20px; position:relative; overflow-x:hidden;">
 
   <div style="{{ ledBorderStyle }}"></div>
 
-  <div style="background:#0d1322; width:100%; max-width:520px; min-height:85vh; border-radius:24px; border:1px solid rgba(56,189,248,0.18); box-shadow:0 25px 60px rgba(0,0,0,0.7); overflow:hidden; position:relative; z-index:10; display:flex; flex-direction:column; backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);">
+  <div style="background:#ffffff; width:100%; max-width:540px; min-height:86vh; border-radius:22px; border:1px solid rgba(16,49,79,0.10); box-shadow:0 30px 70px -20px rgba(16,49,79,0.35), 0 2px 8px rgba(16,49,79,0.06); overflow:hidden; position:relative; z-index:10; display:flex; flex-direction:column;">
 
-    <div style="display:flex; align-items:center; gap:10px; padding:10px 16px; border-bottom:1px solid rgba(56,189,248,0.14); background:rgba(5,8,14,0.5); flex-shrink:0;">
-      <img src="logo-diplomatura.jpeg" alt="Logo Diplomatura" style="width:36px; height:36px; border-radius:50%; object-fit:cover; border:1.5px solid rgba(56,189,248,0.4); flex-shrink:0; box-shadow:0 0 10px rgba(56,189,248,0.25);"/>
+    <div style="display:flex; align-items:center; gap:12px; padding:12px 18px; background:linear-gradient(105deg,#0f2f50 0%,#16436e 55%,#1f6284 100%); flex-shrink:0; position:relative;">
+      <div style="width:46px; height:46px; border-radius:50%; background:#ffffff; padding:2px; box-shadow:0 2px 8px rgba(0,0,0,0.25); flex-shrink:0;">
+        <img src="logo-diplomatura.jpeg" alt="Logo Diplomatura" style="width:100%; height:100%; border-radius:50%; object-fit:cover; display:block;"/>
+      </div>
       <div style="flex:1; min-width:0;">
-        <div style="font-family:'Outfit',sans-serif; font-size:0.6rem; font-weight:700; letter-spacing:0.5px; color:#38bdf8; text-transform:uppercase; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Diplomatura en Mejoras de Calidad de Atención y Seguridad del Paciente</div>
-        <div style="font-size:0.6rem; color:#64748b; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Hospital Regional Río Gallegos · UNPA</div>
+        <div style="font-family:'Spectral',serif; font-size:0.82rem; font-weight:700; letter-spacing:0.2px; color:#ffffff; line-height:1.15;">Diplomatura en Mejoras de Calidad de Atención y Seguridad del Paciente</div>
+        <div style="font-size:0.66rem; color:#a9c9dc; letter-spacing:0.3px; margin-top:1px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Hospital Regional Río Gallegos · UNPA · Prov. de Santa Cruz</div>
       </div>
       <sc-if value="{{ showHeaderStep }}" hint-placeholder-val="{{ false }}">
-        <span style="font-family:'Outfit',sans-serif; font-size:0.68rem; font-weight:800; color:#94a3b8; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.06); padding:3px 8px; border-radius:8px; flex-shrink:0; white-space:nowrap;">{{ headerStepText }}</span>
+        <span style="font-family:'Spectral',serif; font-size:0.72rem; font-weight:700; color:#ffffff; background:rgba(255,255,255,0.14); border:1px solid rgba(255,255,255,0.22); padding:3px 9px; border-radius:20px; flex-shrink:0; white-space:nowrap;">{{ headerStepText }}</span>
       </sc-if>
-      <button onClick="{{ toggleQuickRef }}" style="background:rgba(56,189,248,0.1); border:1px solid rgba(56,189,248,0.3); color:#38bdf8; border-radius:8px; width:30px; height:30px; cursor:pointer; font-size:0.85rem; flex-shrink:0;">📖</button>
+      <button onClick="{{ toggleQuickRef }}" title="Manual de herramientas" style="background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.22); color:#ffffff; border-radius:9px; width:32px; height:32px; cursor:pointer; font-size:0.9rem; flex-shrink:0; display:flex; align-items:center; justify-content:center;">📖</button>
       <sc-if value="{{ showHomeBtn }}" hint-placeholder-val="{{ false }}">
-        <button onClick="{{ restartGame }}" style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); color:#94a3b8; border-radius:8px; width:30px; height:30px; cursor:pointer; font-size:0.85rem; flex-shrink:0;">🏠</button>
+        <button onClick="{{ restartGame }}" title="Inicio" style="background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.22); color:#ffffff; border-radius:9px; width:32px; height:32px; cursor:pointer; font-size:0.9rem; flex-shrink:0; display:flex; align-items:center; justify-content:center;">⌂</button>
       </sc-if>
     </div>
 
     <sc-if value="{{ isStart }}" hint-placeholder-val="{{ true }}">
-      <div style="padding:24px; display:flex; flex-direction:column; flex:1;">
-        <div style="display:flex; align-items:center; gap:8px; margin-bottom:20px; justify-content:center;">
-          <div style="font-size:1.6rem; filter:drop-shadow(0 0 10px #38bdf8);">🎓</div>
-          <span style="background:rgba(56,189,248,0.1); color:#38bdf8; border:1px solid rgba(56,189,248,0.18); padding:6px 14px; border-radius:30px; font-size:0.75rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; box-shadow:0 0 12px rgba(56,189,248,0.2);">Simulador Académico de Seguridad Clínica</span>
-        </div>
-        <h1 style="font-family:'Outfit',sans-serif; font-size:2.1rem; font-weight:800; text-align:center; background:linear-gradient(135deg,#ffffff 30%,#38bdf8 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin:0 0 8px; line-height:1.2;">Guardias de Alto Riesgo</h1>
-        <p style="color:#94a3b8; font-size:0.92rem; text-align:center; margin:0 0 26px; line-height:1.4;">Simulador de Traspaso Seguro y Toma de Decisiones Clínicas</p>
-
-        <div style="background:rgba(20,29,46,0.75); border:1px solid rgba(56,189,248,0.18); border-radius:18px; padding:20px; margin-bottom:20px; font-size:0.9rem; line-height:1.6;">
-          <p style="margin:0 0 14px;">Ponés a prueba tu dominio de <strong>SBAR, I-PASS, CUS, DESC, Briefing y las herramientas Lean Healthcare</strong> a lo largo de una guardia con <strong>17 casos clínicos</strong> en Urgencias, UCI, Quirófano, Farmacia y más. Tu misión: identificar la respuesta metodológicamente correcta en cada caso.</p>
-          <div style="display:flex; flex-wrap:wrap; gap:8px; margin:14px 0;">
-            <div style="background:rgba(56,189,248,0.08); border:1px solid rgba(56,189,248,0.2); color:#e2e8f0; font-size:0.75rem; font-weight:600; padding:4px 10px; border-radius:8px; white-space:nowrap; flex-shrink:0;">🛡️ Seguridad del Paciente</div>
-            <div style="background:rgba(56,189,248,0.08); border:1px solid rgba(56,189,248,0.2); color:#e2e8f0; font-size:0.75rem; font-weight:600; padding:4px 10px; border-radius:8px; white-space:nowrap; flex-shrink:0;">🗣️ Comunicación Asertiva</div>
-            <div style="background:rgba(56,189,248,0.08); border:1px solid rgba(56,189,248,0.2); color:#e2e8f0; font-size:0.75rem; font-weight:600; padding:4px 10px; border-radius:8px; white-space:nowrap; flex-shrink:0;">⚙️ Eficiencia Lean Healthcare</div>
+      <div style="padding:30px 26px 26px; display:flex; flex-direction:column; flex:1;">
+        <div style="display:flex; flex-direction:column; align-items:center; margin-bottom:22px;">
+          <div style="width:118px; height:118px; border-radius:50%; background:#ffffff; padding:4px; box-shadow:0 10px 28px -8px rgba(16,49,79,0.4); border:1px solid rgba(16,49,79,0.08); margin-bottom:18px; position:relative;">
+            <div style="position:absolute; inset:-6px; border-radius:50%; border:1.5px dashed rgba(43,127,164,0.35); animation:ring-spin 40s linear infinite;"></div>
+            <img src="logo-diplomatura.jpeg" alt="Logo Diplomatura" style="width:100%; height:100%; border-radius:50%; object-fit:cover; display:block;"/>
           </div>
-          <p style="color:#fca5a5; font-weight:600; background:rgba(239,68,68,0.08); padding:10px 12px; border-radius:10px; border-left:3px solid #ef4444; margin:0;">⚠️ Mantén el <strong>Riesgo Acumulado</strong> controlado. Si el riesgo alcanza el 100%, el paciente sufrirá un evento adverso centinela.</p>
+          <span style="background:#eaf3f7; color:#1f6284; border:1px solid rgba(43,127,164,0.28); padding:5px 15px; border-radius:30px; font-size:0.72rem; font-weight:700; letter-spacing:1.2px; text-transform:uppercase;">Simulador Académico de Seguridad Clínica</span>
+        </div>
+        <h1 style="font-family:'Spectral',serif; font-size:2.3rem; font-weight:800; text-align:center; color:#0f2f50; margin:0 0 8px; line-height:1.12; letter-spacing:-0.5px;">Guardias de Alto Riesgo</h1>
+        <p style="color:#5c7085; font-size:0.95rem; text-align:center; margin:0 0 24px; line-height:1.45;">Toma de decisiones clínicas, comunicación estructurada y mejora continua</p>
+
+        <div style="background:#f6f9fb; border:1px solid rgba(16,49,79,0.09); border-radius:16px; padding:20px; margin-bottom:16px; font-size:0.92rem; line-height:1.62; color:#33475b;">
+          <p style="margin:0 0 14px;">Ponés a prueba tu dominio de <strong style="color:#0f2f50;">SBAR, I-PASS, CUS, DESC, Briefing</strong> y las herramientas <strong style="color:#0f2f50;">Lean Healthcare</strong> a lo largo de una guardia con <strong style="color:#1f6284;">17 casos clínicos</strong>. Tu misión: identificar la respuesta metodológicamente correcta en cada caso.</p>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:16px;">
+            <div style="display:flex; align-items:center; gap:8px; background:#ffffff; border:1px solid rgba(16,49,79,0.08); color:#33475b; font-size:0.78rem; font-weight:600; padding:9px 11px; border-radius:10px;"><span style="font-size:1rem;">🛡️</span> Seguridad del Paciente</div>
+            <div style="display:flex; align-items:center; gap:8px; background:#ffffff; border:1px solid rgba(16,49,79,0.08); color:#33475b; font-size:0.78rem; font-weight:600; padding:9px 11px; border-radius:10px;"><span style="font-size:1rem;">🗣️</span> Comunicación Asertiva</div>
+            <div style="display:flex; align-items:center; gap:8px; background:#ffffff; border:1px solid rgba(16,49,79,0.08); color:#33475b; font-size:0.78rem; font-weight:600; padding:9px 11px; border-radius:10px;"><span style="font-size:1rem;">⚙️</span> Eficiencia Lean</div>
+            <div style="display:flex; align-items:center; gap:8px; background:#ffffff; border:1px solid rgba(16,49,79,0.08); color:#33475b; font-size:0.78rem; font-weight:600; padding:9px 11px; border-radius:10px;"><span style="font-size:1rem;">🎓</span> Fundamento Teórico</div>
+          </div>
+          <div style="display:flex; gap:10px; align-items:flex-start; color:#8a4b2d; background:#fbf1e8; padding:11px 13px; border-radius:11px; border:1px solid rgba(214,138,44,0.25); margin-top:14px; font-size:0.82rem; line-height:1.45;"><span style="font-size:1rem; flex-shrink:0;">⚠️</span><span>Mantené el <strong>Riesgo Acumulado</strong> bajo control. Si alcanza el 100%, se declara un <strong>evento adverso centinela</strong>.</span></div>
         </div>
 
-        <div style="display:flex; align-items:center; gap:12px; font-size:0.85rem; color:#94a3b8; margin-bottom:22px; background:rgba(10,15,26,0.6); padding:12px 14px; border-radius:12px; border:1px solid rgba(255,255,255,0.05);">
+        <div style="display:flex; align-items:center; gap:12px; font-size:0.85rem; color:#5c7085; margin-bottom:20px; background:#f6f9fb; padding:12px 14px; border-radius:12px; border:1px solid rgba(16,49,79,0.08);">
           <div onClick="{{ toggleAudioStart }}" style="{{ switchTrackStyle }}"><div style="{{ switchThumbStyle }}"></div></div>
-          <span>Activar Monitor de Audio (ECG Beeps, Alarmas de Código Rojo)</span>
+          <span>Monitor de audio (latido cardíaco, alarmas de código rojo)</span>
         </div>
 
         <div style="margin-top:auto; display:flex; flex-direction:column; gap:10px;">
-          <button onClick="{{ toggleQuickRef }}" style="background:transparent; color:#38bdf8; border:1px solid rgba(56,189,248,0.3); padding:11px 20px; border-radius:12px; font-family:'Outfit',sans-serif; font-size:0.85rem; font-weight:600; cursor:pointer; display:block; text-align:center; width:100%;">📖 Ver Manual de Herramientas</button>
-          <button onClick="{{ startGame }}" style="background:linear-gradient(135deg,#38bdf8 0%,#0284c7 100%); color:#040811; border:none; padding:14px 20px; border-radius:12px; font-family:'Outfit',sans-serif; font-size:0.92rem; font-weight:700; cursor:pointer; box-shadow:0 4px 16px rgba(56,189,248,0.3); display:block; text-align:center; width:100%;" style-hover="transform:translateY(-2px); box-shadow:0 6px 22px rgba(56,189,248,0.45);">Iniciar Guardia (08:00 AM) →</button>
+          <button onClick="{{ toggleQuickRef }}" style="background:#ffffff; color:#1f6284; border:1.5px solid rgba(43,127,164,0.35); padding:12px 20px; border-radius:13px; font-family:'Source Sans 3',sans-serif; font-size:0.88rem; font-weight:700; cursor:pointer; width:100%;" style-hover="background:#eaf3f7;">📖 Ver Manual de Herramientas</button>
+          <button onClick="{{ startGame }}" style="background:linear-gradient(105deg,#16436e 0%,#2b7fa4 100%); color:#ffffff; border:none; padding:15px 20px; border-radius:13px; font-family:'Spectral',serif; font-size:1rem; font-weight:700; cursor:pointer; box-shadow:0 8px 20px -6px rgba(31,98,132,0.6); width:100%; letter-spacing:0.3px;" style-hover="transform:translateY(-2px); box-shadow:0 12px 26px -6px rgba(31,98,132,0.7);">Iniciar Guardia · 08:00 AM →</button>
         </div>
       </div>
     </sc-if>
 
     <sc-if value="{{ isGame }}" hint-placeholder-val="{{ false }}">
-      <div style="padding:24px; display:flex; flex-direction:column; flex:1; position:relative;">
-        <div style="border-bottom:1px solid rgba(56,189,248,0.18); padding-bottom:14px; margin-bottom:12px;">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+      <div style="padding:20px 24px 24px; display:flex; flex-direction:column; flex:1; position:relative;">
+
+        <div style="background:#0e2c48; border-radius:16px; padding:12px 14px; margin-bottom:14px; box-shadow:inset 0 1px 3px rgba(0,0,0,0.4);">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:9px;">
             <div style="display:flex; align-items:center; gap:8px;">
-              <span style="background:rgba(56,189,248,0.1); color:#38bdf8; border:1px solid rgba(56,189,248,0.18); padding:6px 14px; border-radius:30px; font-size:0.75rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; animation:badge-pulse-anim 2s infinite ease-in-out;">{{ areaIcon }} {{ areaBadge }}</span>
-              <span style="font-size:0.8rem; font-weight:600; color:#94a3b8; background:rgba(255,255,255,0.04); padding:4px 10px; border-radius:20px; border:1px solid rgba(255,255,255,0.05);">{{ clockDisplay }}</span>
+              <span style="background:rgba(90,167,196,0.16); color:#8fc6dd; border:1px solid rgba(90,167,196,0.3); padding:5px 12px; border-radius:20px; font-size:0.7rem; font-weight:700; letter-spacing:0.6px; text-transform:uppercase; animation:soft-pulse 2.4s infinite;">{{ areaIcon }} {{ areaBadge }}</span>
+              <span style="font-size:0.74rem; font-weight:600; color:#7f9cb3; background:rgba(255,255,255,0.05); padding:3px 9px; border-radius:16px;">{{ clockDisplay }}</span>
             </div>
-            <div style="display:flex; gap:10px; background:#05080e; padding:4px 10px; border-radius:8px; border:1px solid rgba(56,189,248,0.15);">
-              <div style="display:flex; flex-direction:column; align-items:center;"><span style="font-size:0.55rem; font-weight:800; color:#94a3b8;">FC</span><span style="font-family:'Outfit',sans-serif; font-size:0.78rem; font-weight:800; color:{{ ledColor }};">{{ vitalHr }}</span></div>
-              <div style="display:flex; flex-direction:column; align-items:center;"><span style="font-size:0.55rem; font-weight:800; color:#94a3b8;">PA</span><span style="font-family:'Outfit',sans-serif; font-size:0.78rem; font-weight:800; color:{{ ledColor }};">{{ vitalBp }}</span></div>
-              <div style="display:flex; flex-direction:column; align-items:center;"><span style="font-size:0.55rem; font-weight:800; color:#94a3b8;">SpO2</span><span style="font-family:'Outfit',sans-serif; font-size:0.78rem; font-weight:800; color:{{ ledColor }};">{{ vitalSpo2 }}</span></div>
+            <div style="display:flex; gap:12px;">
+              <div style="display:flex; flex-direction:column; align-items:center;"><span style="font-size:0.52rem; font-weight:700; color:#6b8aa3; letter-spacing:0.5px;">FC</span><span style="font-family:'Spectral',serif; font-size:0.82rem; font-weight:700; color:{{ ledColor }};">{{ vitalHr }}</span></div>
+              <div style="display:flex; flex-direction:column; align-items:center;"><span style="font-size:0.52rem; font-weight:700; color:#6b8aa3; letter-spacing:0.5px;">PA</span><span style="font-family:'Spectral',serif; font-size:0.82rem; font-weight:700; color:{{ ledColor }};">{{ vitalBp }}</span></div>
+              <div style="display:flex; flex-direction:column; align-items:center;"><span style="font-size:0.52rem; font-weight:700; color:#6b8aa3; letter-spacing:0.5px;">SpO₂</span><span style="font-family:'Spectral',serif; font-size:0.82rem; font-weight:700; color:{{ ledColor }};">{{ vitalSpo2 }}</span></div>
             </div>
           </div>
-          <div style="background:#05080e; border-radius:10px; padding:6px; border:1px solid rgba(56,189,248,0.1); position:relative; overflow:hidden; height:44px; margin-bottom:10px;">
-            <svg style="width:100%; height:100%; display:block;" viewBox="0 0 300 50">
-              <path style="stroke:rgba(56,189,248,0.05); stroke-width:0.5;" d="M 0 25 L 300 25 M 0 10 L 300 10 M 0 40 L 300 40 M 30 0 L 30 50 M 60 0 L 60 50 M 90 0 L 90 50 M 120 0 L 120 50 M 150 0 L 150 50 M 180 0 L 180 50 M 210 0 L 210 50 M 240 0 L 240 50 M 270 0 L 270 50"></path>
+          <div style="background:#071c30; border-radius:8px; position:relative; overflow:hidden; height:38px;">
+            <svg style="width:100%; height:100%; display:block;" viewBox="0 0 300 50" preserveAspectRatio="none">
+              <path style="stroke:rgba(143,198,221,0.06); stroke-width:0.5;" d="M 0 25 L 300 25 M 0 12 L 300 12 M 0 38 L 300 38"></path>
               <path style="{{ ecgLineStyle }}" d="M 0 25 L 40 25 L 45 20 L 50 30 L 55 25 L 75 25 L 80 5 L 85 45 L 90 25 L 110 25 L 115 22 L 120 28 L 125 25 L 300 25"></path>
             </svg>
           </div>
-          <div style="display:flex; flex-wrap:wrap; gap:3px;">
-            <sc-for list="{{ progressDots }}" as="dot" hint-placeholder-count="22">
-              <div style="{{ dot.style }}" title="{{ dot.title }}"></div>
-            </sc-for>
-          </div>
         </div>
 
-        <div style="display:grid; grid-template-columns:1.2fr 0.9fr 0.9fr; gap:8px; margin-bottom:14px;">
-          <div style="background:rgba(20,29,46,0.75); border:1px solid rgba(56,189,248,0.18); border-radius:12px; padding:10px; display:flex; flex-direction:column; justify-content:space-between;">
-            <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.65rem; font-weight:700; text-transform:uppercase; color:#94a3b8; letter-spacing:0.5px; margin-bottom:6px;"><span>🔥 Riesgo Acum.</span><span style="font-size:0.78rem; font-weight:800; color:{{ riskColor }}; font-family:'Outfit',sans-serif;">{{ riskLabel }}</span></div>
-            <div style="background:#05080e; height:6px; border-radius:6px; overflow:hidden;"><div style="height:100%; border-radius:6px; transition:width 0.6s, background-color 0.8s; width:{{ riskWidth }}; background:{{ riskColor }}; box-shadow:0 0 8px {{ ledGlow }};"></div></div>
+        <div style="display:flex; flex-wrap:wrap; gap:4px; margin-bottom:14px; justify-content:center;">
+          <sc-for list="{{ progressDots }}" as="dot" hint-placeholder-count="17">
+            <div style="{{ dot.style }}" title="{{ dot.title }}"></div>
+          </sc-for>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1.15fr 0.9fr 0.9fr; gap:8px; margin-bottom:16px;">
+          <div style="background:#f6f9fb; border:1px solid rgba(16,49,79,0.09); border-radius:12px; padding:9px 10px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.6rem; font-weight:700; text-transform:uppercase; color:#6b8098; letter-spacing:0.4px; margin-bottom:6px;"><span>Riesgo</span><span style="font-size:0.74rem; font-weight:800; color:{{ riskColor }}; font-family:'Spectral',serif;">{{ riskLabel }}</span></div>
+            <div style="background:#e2eaf0; height:6px; border-radius:6px; overflow:hidden;"><div style="height:100%; border-radius:6px; transition:width 0.6s, background-color 0.8s; width:{{ riskWidth }}; background:{{ riskColor }};"></div></div>
           </div>
-          <div style="background:rgba(20,29,46,0.75); border:1px solid rgba(56,189,248,0.18); border-radius:12px; padding:10px; display:flex; flex-direction:column; justify-content:space-between;">
-            <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.65rem; font-weight:700; text-transform:uppercase; color:#94a3b8; letter-spacing:0.5px; margin-bottom:6px;"><span>⚙️ Lean</span><span style="font-size:0.78rem; font-weight:800; color:#f8fafc; font-family:'Outfit',sans-serif;">{{ leanValText }}</span></div>
-            <div style="background:#05080e; height:6px; border-radius:6px; overflow:hidden;"><div style="height:100%; border-radius:6px; background:#38bdf8; box-shadow:0 0 8px rgba(56,189,248,0.4); transition:width 0.6s; width:{{ leanWidth }};"></div></div>
+          <div style="background:#f6f9fb; border:1px solid rgba(16,49,79,0.09); border-radius:12px; padding:9px 10px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.6rem; font-weight:700; text-transform:uppercase; color:#6b8098; letter-spacing:0.4px; margin-bottom:6px;"><span>Lean</span><span style="font-size:0.74rem; font-weight:800; color:#1f6284; font-family:'Spectral',serif;">{{ leanValText }}</span></div>
+            <div style="background:#e2eaf0; height:6px; border-radius:6px; overflow:hidden;"><div style="height:100%; border-radius:6px; background:#2b7fa4; transition:width 0.6s; width:{{ leanWidth }};"></div></div>
           </div>
-          <div style="background:rgba(20,29,46,0.75); border:1px solid rgba(56,189,248,0.18); border-radius:12px; padding:10px; display:flex; flex-direction:column; justify-content:space-between;">
-            <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.65rem; font-weight:700; text-transform:uppercase; color:#94a3b8; letter-spacing:0.5px; margin-bottom:6px;"><span>🗣️ Comunic.</span><span style="font-size:0.78rem; font-weight:800; color:#f8fafc; font-family:'Outfit',sans-serif;">{{ commValText }}</span></div>
-            <div style="background:#05080e; height:6px; border-radius:6px; overflow:hidden;"><div style="height:100%; border-radius:6px; background:#a855f7; box-shadow:0 0 8px rgba(168,85,247,0.4); transition:width 0.6s; width:{{ commWidth }};"></div></div>
+          <div style="background:#f6f9fb; border:1px solid rgba(16,49,79,0.09); border-radius:12px; padding:9px 10px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.6rem; font-weight:700; text-transform:uppercase; color:#6b8098; letter-spacing:0.4px; margin-bottom:6px;"><span>Comunic.</span><span style="font-size:0.74rem; font-weight:800; color:#5a53a8; font-family:'Spectral',serif;">{{ commValText }}</span></div>
+            <div style="background:#e2eaf0; height:6px; border-radius:6px; overflow:hidden;"><div style="height:100%; border-radius:6px; background:#6c66c0; transition:width 0.6s; width:{{ commWidth }};"></div></div>
           </div>
         </div>
 
         <div style="display:flex; flex-direction:column; flex:1;">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-            <span style="font-size:0.75rem; font-weight:700; color:#38bdf8; text-transform:uppercase; letter-spacing:0.5px;">🧭 {{ stepLabel }}</span>
-            <div style="display:flex; align-items:center; gap:10px;">
-              <span style="font-size:0.72rem; color:#94a3b8;">🔊</span>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+            <span style="font-size:0.7rem; font-weight:700; color:#1f6284; text-transform:uppercase; letter-spacing:0.8px; display:flex; align-items:center; gap:6px;"><span style="width:20px; height:2px; background:#2b7fa4; display:inline-block; border-radius:2px;"></span>{{ toolTag }}</span>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="font-size:0.72rem; color:#8896a6;">🔊</span>
               <div onClick="{{ toggleAudioGame }}" style="{{ switchTrackStyle }}"><div style="{{ switchThumbStyle }}"></div></div>
             </div>
           </div>
 
-          <h2 style="font-family:'Outfit',sans-serif; font-size:1.12rem; font-weight:700; margin:0 0 12px; line-height:1.3; color:#ffffff;">{{ eventTitle }}</h2>
-          <div style="background:rgba(5,8,14,0.65); border:1px solid rgba(56,189,248,0.18); border-left:4px solid #38bdf8; padding:14px 16px; border-radius:12px; font-size:0.86rem; line-height:1.55; color:#cbd5e1; margin-bottom:16px;">{{ contextText }}</div>
+          <h2 style="font-family:'Spectral',serif; font-size:1.25rem; font-weight:700; margin:0 0 12px; line-height:1.28; color:#0f2f50;">{{ eventTitle }}</h2>
+          <div style="background:#f6f9fb; border:1px solid rgba(16,49,79,0.09); border-left:4px solid #2b7fa4; padding:14px 16px; border-radius:12px; font-size:0.88rem; line-height:1.6; color:#3a4d61; margin-bottom:18px;">{{ contextText }}</div>
 
           <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:16px;">
             <sc-for list="{{ optionsList }}" as="opt" hint-placeholder-count="4">
@@ -142,55 +152,56 @@
           <sc-if value="{{ feedbackVisible }}" hint-placeholder-val="{{ false }}">
             <div style="{{ feedbackCardStyle }}">
               <div>
-                <h4 style="{{ feedbackTitleStyle }}">{{ feedbackTitle }}</h4>
-                <p style="font-size:0.82rem; line-height:1.5; color:#e2e8f0; margin:0 0 12px;">{{ feedbackText }}</p>
-                <div style="background:rgba(5,8,14,0.65); border-radius:10px; padding:12px; border:1px solid rgba(255,255,255,0.05);">
-                  <h5 style="font-size:0.75rem; font-weight:700; color:#38bdf8; margin:0 0 4px; text-transform:uppercase;">📚 Fundamento Teórico</h5>
-                  <p style="font-size:0.78rem; line-height:1.45; color:#94a3b8; margin:0;">{{ debriefText }}</p>
+                <h4 style="{{ feedbackTitleStyle }}">{{ feedbackIcon }} {{ feedbackTitle }}</h4>
+                <p style="font-size:0.85rem; line-height:1.55; color:#3a4d61; margin:0 0 12px;">{{ feedbackText }}</p>
+                <div style="background:#ffffff; border-radius:10px; padding:12px 14px; border:1px solid rgba(16,49,79,0.08);">
+                  <h5 style="font-size:0.68rem; font-weight:700; color:#1f6284; margin:0 0 5px; text-transform:uppercase; letter-spacing:0.6px;">📚 Fundamento Teórico</h5>
+                  <p style="font-size:0.8rem; line-height:1.5; color:#5c7085; margin:0;">{{ debriefText }}</p>
                 </div>
               </div>
             </div>
           </sc-if>
 
           <sc-if value="{{ feedbackVisible }}" hint-placeholder-val="{{ false }}">
-            <button onClick="{{ nextEvent }}" style="background:linear-gradient(135deg,#38bdf8 0%,#0284c7 100%); color:#040811; border:none; padding:14px 20px; border-radius:12px; font-family:'Outfit',sans-serif; font-size:0.92rem; font-weight:700; cursor:pointer; box-shadow:0 4px 16px rgba(56,189,248,0.3); display:block; text-align:center; width:100%; margin-top:auto;">{{ nextBtnText }}</button>
+            <button onClick="{{ nextEvent }}" style="background:linear-gradient(105deg,#16436e 0%,#2b7fa4 100%); color:#ffffff; border:none; padding:14px 20px; border-radius:13px; font-family:'Spectral',serif; font-size:0.95rem; font-weight:700; cursor:pointer; box-shadow:0 8px 20px -6px rgba(31,98,132,0.55); width:100%; margin-top:auto; letter-spacing:0.3px;">{{ nextBtnText }}</button>
           </sc-if>
         </div>
       </div>
     </sc-if>
 
     <sc-if value="{{ isResult }}" hint-placeholder-val="{{ false }}">
-      <div style="padding:24px; display:flex; flex-direction:column; flex:1;">
-        <div style="display:flex; align-items:center; gap:8px; margin-bottom:20px; justify-content:center;">
+      <div style="padding:28px 26px 26px; display:flex; flex-direction:column; flex:1;">
+        <div style="display:flex; align-items:center; gap:8px; margin-bottom:16px; justify-content:center;">
           <span style="{{ resultBadgeStyle }}">{{ resultBadgeText }}</span>
         </div>
-        <h1 style="font-family:'Outfit',sans-serif; font-size:2rem; font-weight:800; text-align:center; margin:0 0 8px; line-height:1.2; color:#ffffff;">{{ resultTitle }}</h1>
-        <p style="color:#94a3b8; font-size:0.92rem; text-align:center; margin:0 0 22px; line-height:1.4;">Reporte de Desempeño Clínico y Seguridad — 17 Situaciones</p>
+        <h1 style="font-family:'Spectral',serif; font-size:2rem; font-weight:800; text-align:center; margin:0 0 6px; line-height:1.15; color:#0f2f50;">{{ resultTitle }}</h1>
+        <p style="color:#5c7085; font-size:0.9rem; text-align:center; margin:0 0 22px; line-height:1.4;">Reporte de Desempeño Clínico · 17 Situaciones</p>
 
-        <div style="border:1px solid rgba(56,189,248,0.25); box-shadow:0 0 0 4px rgba(56,189,248,0.05); border-radius:20px; padding:16px; margin-bottom:20px; position:relative;">
-          <div style="position:absolute; top:-12px; left:50%; transform:translateX(-50%); background:#0d1322; padding:0 10px; font-size:0.7rem; font-weight:700; color:#38bdf8; letter-spacing:0.5px; text-transform:uppercase; white-space:nowrap;">🎓 Certificado de Desempeño</div>
+        <div style="border:1px solid rgba(43,127,164,0.3); border-radius:18px; padding:20px 16px 16px; margin-bottom:20px; position:relative; background:linear-gradient(180deg,#f8fbfc 0%,#ffffff 100%);">
+          <div style="position:absolute; top:-11px; left:50%; transform:translateX(-50%); background:#ffffff; padding:0 12px; font-size:0.66rem; font-weight:700; color:#1f6284; letter-spacing:1px; text-transform:uppercase; white-space:nowrap;">🎓 Certificado de Desempeño</div>
           <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:10px;">
-            <div style="background:rgba(20,29,46,0.75); border:1px solid rgba(56,189,248,0.18); border-radius:16px; padding:14px 8px; text-align:center;"><div style="font-family:'Outfit',sans-serif; font-size:1.4rem; font-weight:800; color:#ef4444; margin-bottom:4px;">{{ finalRisk }}</div><div style="font-size:0.68rem; color:#94a3b8; font-weight:600; text-transform:uppercase;">🔥 Riesgo Final</div></div>
-            <div style="background:rgba(20,29,46,0.75); border:1px solid rgba(56,189,248,0.18); border-radius:16px; padding:14px 8px; text-align:center;"><div style="font-family:'Outfit',sans-serif; font-size:1.4rem; font-weight:800; color:#a855f7; margin-bottom:4px;">{{ finalComm }}</div><div style="font-size:0.68rem; color:#94a3b8; font-weight:600; text-transform:uppercase;">🗣️ Comunicación</div></div>
-            <div style="background:rgba(20,29,46,0.75); border:1px solid rgba(56,189,248,0.18); border-radius:16px; padding:14px 8px; text-align:center;"><div style="font-family:'Outfit',sans-serif; font-size:1.4rem; font-weight:800; color:#38bdf8; margin-bottom:4px;">{{ finalLean }}</div><div style="font-size:0.68rem; color:#94a3b8; font-weight:600; text-transform:uppercase;">⚙️ Eficiencia Lean</div></div>
+            <div style="text-align:center; padding:6px 4px;"><div style="font-family:'Spectral',serif; font-size:1.55rem; font-weight:800; color:{{ finalRiskColor }}; margin-bottom:2px;">{{ finalRisk }}</div><div style="font-size:0.62rem; color:#6b8098; font-weight:700; text-transform:uppercase; letter-spacing:0.4px;">Riesgo</div></div>
+            <div style="text-align:center; padding:6px 4px; border-left:1px solid rgba(16,49,79,0.08); border-right:1px solid rgba(16,49,79,0.08);"><div style="font-family:'Spectral',serif; font-size:1.55rem; font-weight:800; color:#6c66c0; margin-bottom:2px;">{{ finalComm }}</div><div style="font-size:0.62rem; color:#6b8098; font-weight:700; text-transform:uppercase; letter-spacing:0.4px;">Comunic.</div></div>
+            <div style="text-align:center; padding:6px 4px;"><div style="font-family:'Spectral',serif; font-size:1.55rem; font-weight:800; color:#2b7fa4; margin-bottom:2px;">{{ finalLean }}</div><div style="font-size:0.62rem; color:#6b8098; font-weight:700; text-transform:uppercase; letter-spacing:0.4px;">Lean</div></div>
           </div>
+          <div style="text-align:center; margin-top:14px; padding-top:12px; border-top:1px solid rgba(16,49,79,0.08); font-size:0.72rem; color:#8a99aa;">Aciertos: <strong style="color:#1f6284; font-size:0.9rem;">{{ correctCount }}</strong> / {{ totalCount }} casos clínicos</div>
         </div>
 
-        <div style="background:rgba(5,8,14,0.6); border-radius:16px; padding:16px; margin-bottom:20px; border-left:4px solid #38bdf8;">
-          <h3 style="font-family:'Outfit',sans-serif; font-size:1.05rem; margin:0 0 6px; color:{{ resultMsgColor }};">{{ resultStatusTitle }}</h3>
-          <p style="font-size:0.85rem; line-height:1.5; color:#cbd5e1; margin:0;">{{ resultStatusDesc }}</p>
+        <div style="{{ resultStatusStyle }}">
+          <h3 style="font-family:'Spectral',serif; font-size:1.1rem; margin:0 0 6px; color:{{ resultMsgColor }};">{{ resultStatusTitle }}</h3>
+          <p style="font-size:0.86rem; line-height:1.55; color:#3a4d61; margin:0;">{{ resultStatusDesc }}</p>
         </div>
 
         <sc-if value="{{ showBitacora }}" hint-placeholder-val="{{ true }}">
-          <div style="margin-bottom:20px;">
-            <h3 style="font-family:'Outfit',sans-serif; font-size:0.85rem; font-weight:700; color:#94a3b8; text-transform:uppercase; margin:0 0 10px; letter-spacing:0.5px;">📔 Bitácora de la Guardia</h3>
+          <div style="margin:20px 0 4px;">
+            <h3 style="font-family:'Spectral',serif; font-size:0.82rem; font-weight:700; color:#0f2f50; text-transform:uppercase; margin:0 0 10px; letter-spacing:0.6px;">📔 Bitácora de la Guardia</h3>
             <div style="display:flex; flex-direction:column; gap:6px;">
-              <sc-for list="{{ historyList }}" as="h" hint-placeholder-count="22">
+              <sc-for list="{{ historyList }}" as="h" hint-placeholder-count="17">
                 <div style="{{ h.style }}">
-                  <span style="font-size:0.9rem;">{{ h.icon }}</span>
+                  <span style="font-size:0.85rem;">{{ h.icon }}</span>
                   <div style="flex:1; min-width:0;">
-                    <div style="font-size:0.78rem; font-weight:600; color:#e2e8f0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{ h.title }}</div>
-                    <div style="font-size:0.68rem; color:#94a3b8;">{{ h.area }}</div>
+                    <div style="font-size:0.78rem; font-weight:600; color:#243a50; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{ h.title }}</div>
+                    <div style="font-size:0.66rem; color:#8a99aa;">{{ h.area }}</div>
                   </div>
                 </div>
               </sc-for>
@@ -198,36 +209,36 @@
           </div>
         </sc-if>
 
-        <div style="margin-bottom:20px;">
-          <h3 style="font-family:'Outfit',sans-serif; font-size:0.85rem; font-weight:700; color:#94a3b8; text-transform:uppercase; margin:0 0 10px; letter-spacing:0.5px;">📚 Manual de Referencia de Herramientas Clínicas</h3>
-          <sc-for list="{{ toolsGuide }}" as="g" hint-placeholder-count="12">
-            <div style="background:rgba(20,29,46,0.75); border:1px solid rgba(56,189,248,0.18); border-radius:10px; margin-bottom:8px; overflow:hidden;">
-              <button onClick="{{ g.onToggle }}" style="width:100%; background:transparent; border:none; padding:12px 16px; display:flex; justify-content:space-between; align-items:center; color:#ffffff; font-family:'Inter',sans-serif; font-size:0.85rem; font-weight:600; cursor:pointer; text-align:left;">
+        <div style="margin:18px 0 20px;">
+          <h3 style="font-family:'Spectral',serif; font-size:0.82rem; font-weight:700; color:#0f2f50; text-transform:uppercase; margin:0 0 10px; letter-spacing:0.6px;">📚 Manual de Herramientas Clínicas</h3>
+          <sc-for list="{{ toolsGuide }}" as="g" hint-placeholder-count="15">
+            <div style="background:#f6f9fb; border:1px solid rgba(16,49,79,0.08); border-radius:11px; margin-bottom:7px; overflow:hidden;">
+              <button onClick="{{ g.onToggle }}" style="width:100%; background:transparent; border:none; padding:12px 15px; display:flex; justify-content:space-between; align-items:center; color:#0f2f50; font-family:'Source Sans 3',sans-serif; font-size:0.84rem; font-weight:700; cursor:pointer; text-align:left;">
                 <span>{{ g.icon }} {{ g.name }}</span>
-                <span style="{{ g.arrowStyle }}">▼</span>
+                <span style="{{ g.arrowStyle }}">▾</span>
               </button>
-              <div style="max-height:{{ g.maxHeight }}; overflow:hidden; transition:max-height 0.3s ease; padding:0 16px;">
-                <p style="font-size:0.78rem; line-height:1.45; color:#94a3b8; padding:8px 0 12px;">{{ g.desc }}</p>
+              <div style="max-height:{{ g.maxHeight }}; overflow:hidden; transition:max-height 0.3s ease; padding:0 15px;">
+                <p style="font-size:0.79rem; line-height:1.5; color:#5c7085; padding:6px 0 12px;">{{ g.desc }}</p>
               </div>
             </div>
           </sc-for>
         </div>
 
-        <button onClick="{{ restartGame }}" style="background:linear-gradient(135deg,#38bdf8 0%,#0284c7 100%); color:#040811; border:none; padding:14px 20px; border-radius:12px; font-family:'Outfit',sans-serif; font-size:0.92rem; font-weight:700; cursor:pointer; box-shadow:0 4px 16px rgba(56,189,248,0.3); display:block; text-align:center; width:100%;">Reiniciar Guardia 🔄</button>
+        <button onClick="{{ restartGame }}" style="background:linear-gradient(105deg,#16436e 0%,#2b7fa4 100%); color:#ffffff; border:none; padding:14px 20px; border-radius:13px; font-family:'Spectral',serif; font-size:0.95rem; font-weight:700; cursor:pointer; box-shadow:0 8px 20px -6px rgba(31,98,132,0.55); width:100%; letter-spacing:0.3px;">↺ Reiniciar Guardia</button>
       </div>
     </sc-if>
 
     <sc-if value="{{ quickRefOpen }}" hint-placeholder-val="{{ false }}">
-      <div style="position:absolute; inset:0; background:rgba(5,8,14,0.94); backdrop-filter:blur(6px); z-index:30; border-radius:24px; padding:22px; overflow-y:auto; display:flex; flex-direction:column;">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
-          <h3 style="font-family:'Outfit',sans-serif; font-size:1rem; color:#38bdf8; margin:0;">📖 Guía Rápida de Herramientas</h3>
-          <button onClick="{{ toggleQuickRef }}" style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); color:#f8fafc; border-radius:8px; padding:4px 10px; cursor:pointer; font-size:0.85rem;">✕</button>
+      <div style="position:absolute; inset:0; background:rgba(248,251,252,0.97); backdrop-filter:blur(4px); z-index:30; padding:22px 24px; overflow-y:auto; display:flex; flex-direction:column;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+          <h3 style="font-family:'Spectral',serif; font-size:1.15rem; color:#0f2f50; margin:0; font-weight:700;">📖 Manual de Herramientas</h3>
+          <button onClick="{{ toggleQuickRef }}" style="background:#0f2f50; border:none; color:#ffffff; border-radius:9px; width:32px; height:32px; cursor:pointer; font-size:0.9rem;">✕</button>
         </div>
-        <div style="display:flex; flex-direction:column; gap:10px;">
+        <div style="display:flex; flex-direction:column; gap:9px;">
           <sc-for list="{{ toolsGuide }}" as="t" hint-placeholder-count="15">
-            <div style="background:rgba(20,29,46,0.75); border:1px solid rgba(56,189,248,0.18); border-radius:10px; padding:10px 12px;">
-              <div style="font-size:0.82rem; font-weight:700; color:#ffffff; margin-bottom:4px;">{{ t.icon }} {{ t.name }}</div>
-              <div style="font-size:0.75rem; line-height:1.4; color:#94a3b8;">{{ t.desc }}</div>
+            <div style="background:#ffffff; border:1px solid rgba(16,49,79,0.09); border-left:3px solid #2b7fa4; border-radius:11px; padding:12px 14px;">
+              <div style="font-size:0.86rem; font-weight:700; color:#0f2f50; margin-bottom:4px;">{{ t.icon }} {{ t.name }}</div>
+              <div style="font-size:0.78rem; line-height:1.5; color:#5c7085;">{{ t.desc }}</div>
             </div>
           </sc-for>
         </div>
@@ -262,15 +273,16 @@ const AREA_ICONS = [
   [/SALUD MENTAL/, "🧠"], [/PEDIATR/, "👶"], [/REANIMACIÓN|SHOCK/, "🚨"],
   [/KINESIOLOG/, "🫁"], [/PROCEDIMIENTOS/, "🧰"], [/ONCOLOG|FARMACIA/, "💊"],
   [/HEMATOLOG/, "🩸"], [/RADIOLOG/, "🧲"], [/UCI|INTENSIVOS|INTERMEDIOS|TRASLADO/, "💉"],
-  [/ENFERMERÍA|ENFERMERIA/, "📋"], [/INTERNACIÓN|INTERNACION|HOSPITALIZACIÓN|HOSPITALIZACION/, "🛏️"],
-  [/URGENCIAS/, "🚑"], [/QUIRÓFANO|QUIROFANO/, "⚕️"]
+  [/ENFERMERÍA|ENFERMERIA/, "📋"], [/DIRECCIÓN|CALIDAD|GESTIÓN|COMITÉ|LOGÍSTICA/, "🏛️"],
+  [/INTERNACIÓN|INTERNACION|HOSPITALIZACIÓN|HOSPITALIZACION/, "🛏️"],
+  [/URGENCIAS/, "🚑"], [/QUIRÓFANO|QUIROFANO|QUIRÚRGICO|QUIRURGICO/, "⚕️"], [/CLÍNICA|CLINICA/, "🩺"]
 ];
 
 class Component extends DCLogic {
   state = {
     screen: 'start', events: [], currentEvent: 0,
     riskLevel: 0, efficiencyLevel: 100, communicationScore: 100,
-    selectedIdx: null, answered: false, audioEnabled: true,
+    selectedIdx: null, answered: false, correct: 0, audioEnabled: true,
     quickRefOpen: false, guideExpandedId: null, history: []
   };
 
@@ -330,12 +342,12 @@ class Component extends DCLogic {
     setTimeout(() => this.playSound(783.99, 0.2, 'sine', 0.12), 160);
   }
   playFailureSound() {
-    this.playSound(120, 0.35, 'sawtooth', 0.2);
-    setTimeout(() => this.playSound(115, 0.3, 'sawtooth', 0.2), 50);
+    this.playSound(180, 0.3, 'sine', 0.14);
+    setTimeout(() => this.playSound(150, 0.28, 'sine', 0.14), 60);
   }
   playCodeRedAlarm() {
-    this.playSound(660, 0.18, 'triangle', 0.15);
-    setTimeout(() => this.playSound(880, 0.18, 'triangle', 0.15), 200);
+    this.playSound(660, 0.18, 'triangle', 0.13);
+    setTimeout(() => this.playSound(880, 0.18, 'triangle', 0.13), 200);
   }
   updateHeartbeatLoop() {
     if (this.heartbeatIntervalId) clearInterval(this.heartbeatIntervalId);
@@ -352,7 +364,7 @@ class Component extends DCLogic {
   startGame = (checked) => {
     this.setState({
       screen: 'game', currentEvent: 0, riskLevel: 0, efficiencyLevel: 100,
-      communicationScore: 100, selectedIdx: null, answered: false, history: [],
+      communicationScore: 100, selectedIdx: null, answered: false, correct: 0, history: [],
       audioEnabled: checked ?? this.state.audioEnabled
     });
     this.initAudio();
@@ -366,7 +378,8 @@ class Component extends DCLogic {
     const communicationScore = Math.max(0, Math.min(100, this.state.communicationScore + opt.comm));
     const efficiencyLevel = Math.max(0, Math.min(100, this.state.efficiencyLevel + opt.lean));
     const history = [...this.state.history, { title: ev.title, area: ev.area, ok: opt.ok }];
-    this.setState({ selectedIdx: idx, answered: true, riskLevel, communicationScore, efficiencyLevel, history }, () => {
+    const correct = this.state.correct + (opt.ok ? 1 : 0);
+    this.setState({ selectedIdx: idx, answered: true, riskLevel, communicationScore, efficiencyLevel, correct, history }, () => {
       this.updateHeartbeatLoop();
       opt.ok ? this.playSuccessSound() : this.playFailureSound();
     });
@@ -402,102 +415,112 @@ class Component extends DCLogic {
   });
   toggleQuickRef = () => this.setState(s => ({ quickRefOpen: !s.quickRefOpen }));
   toggleGuide = (id) => this.setState(s => ({ guideExpandedId: s.guideExpandedId === id ? null : id }));
-  restartGame = () => this.setState({ screen: 'start' });
+  restartGame = () => this.setState({ screen: 'start', quickRefOpen: false });
 
   renderVals() {
     const s = this.state;
     const events = s.events;
-    const total = events.length || 22;
+    const total = events.length || 17;
     const ev = events[s.currentEvent];
 
-    let riskColor = '#10b981', riskGlow = 'rgba(16,185,129,0.4)', ledSpeed = '3.5s';
-    let hrText = `${65 + Math.floor(s.riskLevel / 4)} bpm`, bpText = '120/80', spo2Text = '98%', riskLabel = `${s.riskLevel}% Estable`;
+    const OK = '#1f9d76', WARN = '#d68a2c', BAD = '#cf4a5b';
+    let riskColor = OK, ledSpeed = '2.5s';
+    let hrText = `${65 + Math.floor(s.riskLevel / 4)} bpm`, bpText = '120/80', spo2Text = '98%', riskLabel = `${s.riskLevel}%`;
     let ecgDuration = '2.5s';
     if (s.riskLevel >= 100) {
-      riskColor = '#ef4444'; riskGlow = 'rgba(239,68,68,0.6)'; ecgDuration = '0s';
-      hrText = '0 bpm'; bpText = '0/0'; spo2Text = '--%'; riskLabel = `${s.riskLevel}% CÓDIGO ROJO`;
+      riskColor = BAD; ecgDuration = '0s';
+      hrText = '0 bpm'; bpText = '0/0'; spo2Text = '--%'; riskLabel = `${s.riskLevel}%`;
     } else if (s.riskLevel >= 70) {
-      riskColor = '#ef4444'; riskGlow = 'rgba(239,68,68,0.6)'; ecgDuration = '0.9s';
-      hrText = `${140 + (s.riskLevel - 70)} bpm`; bpText = '85/50'; spo2Text = '86%'; riskLabel = `${s.riskLevel}% CÓDIGO ROJO`;
+      riskColor = BAD; ecgDuration = '0.9s';
+      hrText = `${140 + (s.riskLevel - 70)} bpm`; bpText = '85/50'; spo2Text = '86%'; riskLabel = `${s.riskLevel}%`;
     } else if (s.riskLevel >= 40) {
-      riskColor = '#f59e0b'; riskGlow = 'rgba(245,158,11,0.45)'; ledSpeed = '1.8s'; ecgDuration = '1.6s';
-      hrText = `${102 + Math.floor((s.riskLevel - 40) / 2)} bpm`; bpText = '145/95'; spo2Text = '93%'; riskLabel = `${s.riskLevel}% Precaución`;
+      riskColor = WARN; ecgDuration = '1.6s';
+      hrText = `${102 + Math.floor((s.riskLevel - 40) / 2)} bpm`; bpText = '145/95'; spo2Text = '93%'; riskLabel = `${s.riskLevel}%`;
     }
     const critical = s.riskLevel >= 70;
+    const glow = critical ? 'rgba(207,74,91,0.5)' : (s.riskLevel >= 40 ? 'rgba(214,138,44,0.4)' : 'rgba(31,157,118,0.3)');
 
-    const ledBorderStyle = `position:fixed; inset:0; pointer-events:none; z-index:999; border:${critical ? 3 : 4}px solid ${riskColor}; box-shadow:inset 0 0 ${critical ? 40 : 20}px ${riskGlow}, 0 0 ${critical ? 30 : 16}px ${riskGlow}; animation:${critical ? 'led-critical-blink 0.45s infinite alternate' : 'led-glow-normal ' + ledSpeed + ' ease-in-out infinite alternate'}; transition:border-color 0.8s, box-shadow 0.8s;`;
-    const ecgLineStyle = `stroke:${riskColor}; stroke-width:2.2; fill:none; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:600; stroke-dashoffset:600; animation:ecg-draw ${ecgDuration} linear infinite; filter:drop-shadow(0 0 4px ${riskColor});`;
+    const ledBorderStyle = `position:fixed; inset:0; pointer-events:none; z-index:999; border:${critical ? 3 : 0}px solid ${riskColor}; box-shadow:${critical ? 'inset 0 0 60px ' + glow : 'none'}; animation:${critical ? 'crit-blink 0.5s infinite alternate' : 'none'}; transition:all 0.6s;`;
+    const ecgLineStyle = `stroke:${riskColor}; stroke-width:2; fill:none; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:600; stroke-dashoffset:600; animation:ecg-draw ${ecgDuration} linear infinite; filter:drop-shadow(0 0 3px ${riskColor});`;
 
     const audioOn = s.audioEnabled;
-    const switchTrackStyle = `position:relative; width:32px; height:18px; border-radius:34px; cursor:pointer; flex-shrink:0; background:${audioOn ? '#38bdf8' : '#334155'}; box-shadow:${audioOn ? '0 0 8px rgba(56,189,248,0.4)' : 'none'}; transition:background-color 0.3s;`;
-    const switchThumbStyle = `position:absolute; top:3px; left:3px; height:12px; width:12px; border-radius:50%; background:white; transition:transform 0.3s; transform:translateX(${audioOn ? '14px' : '0'});`;
+    const switchTrackStyle = `position:relative; width:34px; height:19px; border-radius:34px; cursor:pointer; flex-shrink:0; background:${audioOn ? '#2b7fa4' : '#c3ccd6'}; transition:background-color 0.3s;`;
+    const switchThumbStyle = `position:absolute; top:2.5px; left:2.5px; height:14px; width:14px; border-radius:50%; background:white; box-shadow:0 1px 2px rgba(0,0,0,0.2); transition:transform 0.3s; transform:translateX(${audioOn ? '15px' : '0'});`;
 
     const progressDots = events.map((e, i) => {
       const h = s.history[i];
-      let bg = 'rgba(255,255,255,0.12)', size = '6px', shadow = 'none';
-      if (h) { bg = h.ok ? '#10b981' : '#ef4444'; }
-      if (i === s.currentEvent && !h) { bg = '#38bdf8'; size = '8px'; shadow = '0 0 6px #38bdf8'; }
-      return { key: i, title: `${i + 1}. ${e.area}`, style: `width:${size}; height:${size}; border-radius:50%; background:${bg}; box-shadow:${shadow};` };
+      let bg = 'rgba(16,49,79,0.14)', w = '7px', ring = 'none';
+      if (h) { bg = h.ok ? OK : BAD; }
+      if (i === s.currentEvent && !h) { bg = '#2b7fa4'; w = '20px'; }
+      return { key: i, title: `${i + 1}. ${e.area}`, style: `width:${w}; height:7px; border-radius:6px; background:${bg}; box-shadow:${ring}; transition:all 0.3s;` };
     });
 
     let optionsList = [];
     if (ev) {
       optionsList = ev.opts.map((opt, idx) => {
         const letter = String.fromCharCode(65 + idx);
-        let bg = 'rgba(20,29,46,0.75)', border = 'rgba(56,189,248,0.18)', color = '#f8fafc', shadow = 'none', badgeBg = 'rgba(56,189,248,0.12)', badgeColor = '#38bdf8', opacity = '1';
+        let bg = '#ffffff', border = 'rgba(16,49,79,0.14)', color = '#243a50', shadow = '0 1px 2px rgba(16,49,79,0.04)', badgeBg = '#eaf3f7', badgeColor = '#1f6284', badgeBorder = 'rgba(43,127,164,0.3)', opacity = '1';
         if (s.answered) {
           if (idx === s.selectedIdx) {
-            if (opt.ok) { bg = 'rgba(16,185,129,0.09)'; border = '#10b981'; shadow = '0 0 14px rgba(16,185,129,0.2)'; color = '#a7f3d0'; badgeBg = '#10b981'; badgeColor = '#040811'; }
-            else { bg = 'rgba(239,68,68,0.09)'; border = '#ef4444'; shadow = '0 0 14px rgba(239,68,68,0.2)'; color = '#fca5a5'; badgeBg = '#ef4444'; badgeColor = '#ffffff'; }
+            if (opt.ok) { bg = '#e9f7f1'; border = OK; color = '#155e48'; badgeBg = OK; badgeColor = '#ffffff'; badgeBorder = OK; shadow = '0 2px 10px rgba(31,157,118,0.2)'; }
+            else { bg = '#fbecee'; border = BAD; color = '#8f2f3c'; badgeBg = BAD; badgeColor = '#ffffff'; badgeBorder = BAD; shadow = '0 2px 10px rgba(207,74,91,0.18)'; }
           } else if (opt.ok) {
-            bg = 'rgba(16,185,129,0.09)'; border = '#10b981'; shadow = '0 0 14px rgba(16,185,129,0.2)'; color = '#a7f3d0'; badgeBg = '#10b981'; badgeColor = '#040811'; opacity = '1';
-          } else { opacity = '0.6'; }
+            bg = '#e9f7f1'; border = OK; color = '#155e48'; badgeBg = OK; badgeColor = '#ffffff'; badgeBorder = OK; shadow = 'none';
+          } else { opacity = '0.5'; }
         }
         return {
-          key: idx, letter,
-          txt: opt.txt,
+          key: idx, letter, txt: opt.txt,
           onClick: () => this.selectOption(idx),
-          style: `background:${bg}; border:1px solid ${border}; padding:14px 16px; border-radius:14px; font-family:'Inter',sans-serif; font-size:0.83rem; color:${color}; text-align:left; cursor:${s.answered ? 'default' : 'pointer'}; pointer-events:${s.answered ? 'none' : 'auto'}; line-height:1.45; transition:all 0.2s; display:flex; align-items:flex-start; gap:12px; box-shadow:${shadow}; opacity:${opacity}; width:100%;`,
-          badgeStyle: `background:${badgeBg}; color:${badgeColor}; font-family:'Outfit',sans-serif; font-weight:800; font-size:0.8rem; min-width:26px; height:26px; border-radius:8px; display:flex; align-items:center; justify-content:center; border:1px solid rgba(56,189,248,0.25); flex-shrink:0;`
+          style: `background:${bg}; border:1.5px solid ${border}; padding:13px 15px; border-radius:13px; font-family:'Source Sans 3',sans-serif; font-size:0.85rem; color:${color}; text-align:left; cursor:${s.answered ? 'default' : 'pointer'}; pointer-events:${s.answered ? 'none' : 'auto'}; line-height:1.45; transition:all 0.2s; display:flex; align-items:flex-start; gap:12px; box-shadow:${shadow}; opacity:${opacity}; width:100%;`,
+          badgeStyle: `background:${badgeBg}; color:${badgeColor}; font-family:'Spectral',serif; font-weight:700; font-size:0.82rem; min-width:26px; height:26px; border-radius:8px; display:flex; align-items:center; justify-content:center; border:1px solid ${badgeBorder}; flex-shrink:0;`
         };
       });
     }
 
     const selectedOpt = ev && s.answered ? ev.opts[s.selectedIdx] : null;
-    const feedbackCardStyle = selectedOpt ? `display:flex; background:rgba(20,29,46,0.75); border:1px solid rgba(56,189,248,0.18); border-radius:16px; padding:16px; margin-top:8px; margin-bottom:16px; animation:slide-up 0.4s forwards; border-left:4px solid ${selectedOpt.ok ? '#10b981' : '#ef4444'};` : '';
-    const feedbackTitleStyle = `font-family:'Outfit',sans-serif; font-size:0.95rem; font-weight:700; margin:0 0 6px; color:${selectedOpt && selectedOpt.ok ? '#34d399' : '#f87171'};`;
+    const fbOk = selectedOpt && selectedOpt.ok;
+    const feedbackCardStyle = selectedOpt ? `display:flex; background:${fbOk ? '#f2fbf7' : '#fdf3f4'}; border:1px solid ${fbOk ? 'rgba(31,157,118,0.25)' : 'rgba(207,74,91,0.22)'}; border-left:4px solid ${fbOk ? OK : BAD}; border-radius:14px; padding:15px 16px; margin-top:4px; margin-bottom:16px; animation:slide-up 0.4s forwards;` : '';
+    const feedbackTitleStyle = `font-family:'Spectral',serif; font-size:0.98rem; font-weight:700; margin:0 0 6px; color:${fbOk ? '#167a5c' : '#b23a4a'};`;
 
     const toolsGuide = TOOLS.map(t => {
       const open = s.guideExpandedId === t.id;
-      return { ...t, onToggle: () => this.toggleGuide(t.id), maxHeight: open ? '260px' : '0px', arrowStyle: `font-size:0.6rem; color:#94a3b8; transition:transform 0.3s; transform:rotate(${open ? 180 : 0}deg); display:inline-block;` };
+      return { ...t, onToggle: () => this.toggleGuide(t.id), maxHeight: open ? '260px' : '0px', arrowStyle: `font-size:0.8rem; color:#8896a6; transition:transform 0.3s; transform:rotate(${open ? 180 : 0}deg); display:inline-block;` };
     });
 
     const historyList = s.history.map((h, i) => ({
-      key: i, title: h.title.replace(/^Situación \d+: /, ''), area: h.area, icon: h.ok ? '✅' : '❌',
-      style: `display:flex; align-items:center; gap:10px; background:rgba(20,29,46,0.5); border:1px solid rgba(56,189,248,0.12); border-left:3px solid ${h.ok ? '#10b981' : '#ef4444'}; border-radius:8px; padding:8px 10px;`
+      key: i, title: h.title.replace(/^Situación \d+: /, ''), area: h.area, icon: h.ok ? '✅' : '⛔',
+      style: `display:flex; align-items:center; gap:10px; background:#ffffff; border:1px solid rgba(16,49,79,0.08); border-left:3px solid ${h.ok ? OK : BAD}; border-radius:9px; padding:8px 11px;`
     }));
 
-    let resultBadgeText = 'GUARDIA FINALIZADA', resultBadgeStyle = '', resultTitle = 'Fin del Turno', resultMsgColor = '#38bdf8', resultStatusTitle = '', resultStatusDesc = '';
-    const badgeBase = `padding:6px 14px; border-radius:30px; font-size:0.75rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; display:inline-block; border:1px solid;`;
+    let resultBadgeText = 'GUARDIA FINALIZADA', resultBadgeStyle = '', resultTitle = 'Fin del Turno', resultMsgColor = '#1f6284', resultStatusTitle = '', resultStatusDesc = '', resultStatusStyle = '';
+    const badgeBase = `padding:6px 15px; border-radius:30px; font-size:0.72rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; display:inline-block; border:1px solid;`;
     const adverse = s.riskLevel >= 100;
+    const statusBase = 'border-radius:14px; padding:16px; border-left:4px solid;';
     if (adverse) {
-      resultTitle = 'Guardia Trágica'; resultBadgeText = 'EVENTO ADVERSO GRAVE';
-      resultBadgeStyle = `${badgeBase} background:rgba(239,68,68,0.15); color:#ef4444; border-color:rgba(239,68,68,0.4);`;
-      resultMsgColor = '#ef4444';
+      resultTitle = 'Guardia Trágica'; resultBadgeText = 'Evento Adverso Grave';
+      resultBadgeStyle = `${badgeBase} background:#fbecee; color:${BAD}; border-color:rgba(207,74,91,0.35);`;
+      resultMsgColor = BAD;
+      resultStatusStyle = `${statusBase} background:#fdf3f4; border-color:${BAD};`;
       resultStatusTitle = '🚨 Centinela Clínico Activado';
-      resultStatusDesc = 'El riesgo acumulado superó el límite de seguridad (100%). Se produjo un error grave que derivó en un evento adverso centinela para el paciente. Revisa el manual de herramientas y vuelve a intentarlo priorizando TeamSTEPPS y Lean Healthcare.';
+      resultStatusDesc = 'El riesgo acumulado superó el límite de seguridad (100%). Se produjo un error grave que derivó en un evento adverso centinela. Repasá el manual de herramientas y reintentá priorizando TeamSTEPPS y Lean Healthcare.';
     } else {
-      resultBadgeText = 'GUARDIA COMPLETADA';
-      resultBadgeStyle = `${badgeBase} background:rgba(16,185,129,0.15); color:#10b981; border-color:rgba(16,185,129,0.4);`;
-      if (s.riskLevel === 0 && s.communicationScore === 100 && s.efficiencyLevel === 100) {
-        resultStatusTitle = '🏆 Guardia de Excelencia Absoluta';
-        resultStatusDesc = `¡Espectacular! Respondiste correctamente los ${total} casos, con comunicación y eficiencia al máximo. Dominás SBAR, I-PASS, CUS, DESC, Briefing y las herramientas Lean Healthcare. Sos un referente en cultura de seguridad.`;
-      } else if (s.riskLevel < 40) {
+      resultBadgeText = 'Guardia Completada';
+      resultBadgeStyle = `${badgeBase} background:#e9f7f1; color:#167a5c; border-color:rgba(31,157,118,0.35);`;
+      if (s.correct === total) {
+        resultStatusStyle = `${statusBase} background:#f2fbf7; border-color:${OK};`;
+        resultMsgColor = '#167a5c';
+        resultStatusTitle = '🏆 Excelencia Absoluta';
+        resultStatusDesc = `¡Espectacular! Respondiste correctamente los ${total} casos. Dominás SBAR, I-PASS, CUS, DESC, Briefing y las herramientas Lean Healthcare. Sos un referente en cultura de seguridad.`;
+      } else if (s.correct >= Math.ceil(total * 0.6)) {
+        resultStatusStyle = `${statusBase} background:#f6f9fb; border-color:#2b7fa4;`;
+        resultMsgColor = '#1f6284';
         resultStatusTitle = '🏥 Guardia Segura';
-        resultStatusDesc = `Buen trabajo. Respondiste bien la mayoría de los ${total} casos clínicos. Repasá el manual de herramientas para afianzar los conceptos que aún generan dudas.`;
+        resultStatusDesc = `Buen desempeño: acertaste ${s.correct} de ${total} casos. Repasá el manual para afianzar los conceptos que aún generan dudas.`;
       } else {
-        resultStatusTitle = '⚠️ Guardia de Alto Riesgo';
-        resultStatusDesc = `Guardia concluida, pero fallaste varios de los ${total} casos clínicos. Repasá SBAR, I-PASS, CUS/DESC y las herramientas Lean del manual antes de reintentar.`;
+        resultStatusStyle = `${statusBase} background:#fbf6ef; border-color:${WARN};`;
+        resultMsgColor = '#a86a1e';
+        resultStatusTitle = '⚠️ Requiere Refuerzo';
+        resultStatusDesc = `Acertaste ${s.correct} de ${total} casos. Repasá SBAR, I-PASS, CUS/DESC y las herramientas Lean del manual antes de reintentar.`;
       }
     }
 
@@ -505,7 +528,7 @@ class Component extends DCLogic {
       isStart: s.screen === 'start', isGame: s.screen === 'game', isResult: s.screen === 'result',
       showHeaderStep: s.screen === 'game', headerStepText: `${s.currentEvent + 1} / ${total}`,
       showHomeBtn: s.screen !== 'start',
-      ledBorderStyle, ledColor: riskColor, ledGlow: riskGlow,
+      ledBorderStyle, ledColor: riskColor,
       switchTrackStyle, switchThumbStyle,
       toggleAudioStart: this.toggleAudioStart, toggleAudioGame: this.toggleAudioGame,
       startGame: () => this.startGame(s.audioEnabled),
@@ -515,17 +538,19 @@ class Component extends DCLogic {
       riskWidth: s.riskLevel + '%', riskColor, riskLabel,
       leanWidth: s.efficiencyLevel + '%', leanValText: s.efficiencyLevel + '%',
       commWidth: s.communicationScore + '%', commValText: s.communicationScore + '%',
-      stepLabel: `Situación ${s.currentEvent + 1} de ${total}`,
+      toolTag: ev ? (ev.tool || 'Caso Clínico') : 'Caso Clínico',
       eventTitle: ev ? ev.title : 'Cargando…', contextText: ev ? ev.context : '',
       optionsList,
       toggleQuickRef: this.toggleQuickRef, quickRefOpen: s.quickRefOpen, toolsGuide,
       feedbackVisible: s.answered, feedbackCardStyle, feedbackTitleStyle,
-      feedbackTitle: selectedOpt ? (selectedOpt.ok ? '¡Decisión Segura!' : 'Brecha de Seguridad Detectada') : '',
+      feedbackIcon: fbOk ? '✔' : '✕',
+      feedbackTitle: selectedOpt ? (fbOk ? 'Decisión Correcta' : 'Respuesta Incorrecta') : '',
       feedbackText: selectedOpt ? selectedOpt.fb : '', debriefText: selectedOpt ? selectedOpt.debrief : '',
       nextEvent: this.nextEvent,
-      nextBtnText: s.riskLevel >= 100 ? 'Declarar Evento Adverso →' : (s.currentEvent === total - 1 ? 'Ver Reporte de Guardia →' : 'Continuar Guardia →'),
-      resultBadgeText, resultBadgeStyle, resultTitle, resultMsgColor, resultStatusTitle, resultStatusDesc,
-      finalRisk: s.riskLevel + '%', finalComm: s.communicationScore + '%', finalLean: s.efficiencyLevel + '%',
+      nextBtnText: s.riskLevel >= 100 ? 'Declarar Evento Adverso →' : (s.currentEvent === total - 1 ? 'Ver Reporte Final →' : 'Siguiente Caso →'),
+      resultBadgeText, resultBadgeStyle, resultTitle, resultMsgColor, resultStatusTitle, resultStatusDesc, resultStatusStyle,
+      finalRisk: s.riskLevel + '%', finalRiskColor: riskColor, finalComm: s.communicationScore + '%', finalLean: s.efficiencyLevel + '%',
+      correctCount: s.correct, totalCount: total,
       showBitacora: this.props.resultDetail !== 'Resumen', historyList,
       restartGame: this.restartGame
     };
